@@ -7,7 +7,7 @@
         <h1 class="animate delay-1">Know Every Corner.<br><span class="text-primary">Before You Move In.</span></h1>
         <p class="animate delay-2">CityIQ is the world's most advanced urban intelligence platform. Analyze safety metrics, life-cost simulations, and neighborhood vibes with AI precision.</p>
         
-        <div class="row animate delay-3" style="display: flex; gap: 20px; justify-content: center;">
+        <div class="hero-actions animate delay-3">
              <a href="#" class="nav-btn" style="padding: 16px 40px; font-size: 18px;">Get the App</a>
              <a href="#features" class="glass-card" style="padding: 16px 40px; border-radius: 14px; margin-bottom: 0;">Explore Data</a>
         </div>
