@@ -1,3 +1,8 @@
+<?php
+ 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AuthController;
 
 // Public Pages
