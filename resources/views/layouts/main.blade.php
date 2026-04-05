@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'CityIQ - Know your city')</title>
+    <title>@yield('title', 'CityIQ - Urban Intelligence & Move Analysis')</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/logo/cityiq_logo.png') }}" type="image/x-icon">
     <meta name="description" content="CityIQ helps you analyze and compare cities before you move. Safety, cost, lifestyle and more.">
 </head>
 <body>
     <nav>
-        <a href="/" class="logo animate">
+        <a href="/" class="logo">
             <img src="{{ asset('assets/logo/cityiq_logo.png') }}" alt="CityIQ">
             <span>CityIQ</span>
         </a>
-        <ul class="nav-links animate">
-            <li><a href="{{ route('landing') }}">Home</a></li>
-            <li><a href="{{ route('about') }}">About</a></li>
-            <li><a href="{{ route('landing') }}#features">Features</a></li>
-            <li><a href="{{ route('admin.dashboard') }}" class="btn-primary">Admin Login</a></li>
-        </ul>
+        <div class="nav-links">
+            <a href="{{ route('landing') }}" class="{{ Request::is('/') ? 'active' : '' }}">Home</a>
+            <a href="{{ route('about') }}" class="{{ Request::is('about') ? 'active' : '' }}">About</a>
+            <a href="{{ route('landing') }}#features">Features</a>
+            <a href="{{ route('landing') }}#pricing">Pricing</a>
+            <a href="{{ route('admin.login') }}" class="nav-btn">Admin Portal</a>
+        </div>
     </nav>
 
     <main>
@@ -27,33 +28,37 @@
     </main>
 
     <footer>
-        <div class="footer-col animate">
-            <div class="logo">
-                <img src="{{ asset('assets/logo/cityiq_logo.png') }}" alt="CityIQ">
-                <span>CityIQ</span>
+        <div class="section" style="padding-top: 0; padding-bottom: 0;">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom: 20px;">
+                        <img src="{{ asset('assets/logo/cityiq_logo.png') }}" alt="CityIQ">
+                        <span>CityIQ</span>
+                    </div>
+                    <p style="color: var(--grey); max-width: 300px;">Smart urban intelligence for better living. Know your city before you move using our advanced AI analytics.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="{{ route('landing') }}">Home</a></li>
+                        <li><a href="{{ route('about') }}">About Us</a></li>
+                        <li><a href="{{ route('landing') }}#features">Features</a></li>
+                        <li><a href="{{ route('faq') }}">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="{{ route('privacy') }}">Privacy Policy</a></li>
+                        <li><a href="{{ route('terms') }}">Terms</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
             </div>
-            <p style="margin-top: 20px; color: var(--grey);">Smart urban intelligence for better living. Know your city before you move.</p>
-        </div>
-        <div class="footer-col animate">
-            <h4>Application</h4>
-            <ul>
-                <li><a href="{{ route('landing') }}">Home</a></li>
-                <li><a href="{{ route('about') }}">About Us</a></li>
-                <li><a href="{{ route('landing') }}#features">Features</a></li>
-                <li><a href="#">Contact Support</a></li>
-            </ul>
-        </div>
-        <div class="footer-col animate">
-            <h4>Legal</h4>
-            <ul>
-                <li><a href="{{ route('privacy') }}">Privacy Policy</a></li>
-                <li><a href="{{ route('terms') }}">Terms of Service</a></li>
-                <li><a href="#">Cookie Policy</a></li>
-                <li><a href="#">Security</a></li>
-            </ul>
-        </div>
-        <div class="copyright animate">
-            &copy; {{ date('Y') }} CityIQ Analytics. All rights reserved. Built for the future of urban living.
+            
+            <div style="text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--grey); font-size: 14px;">
+                &copy; {{ date('Y') }} CityIQ Analytics. Built with precision for local dwellers.
+            </div>
         </div>
     </footer>
 </body>
