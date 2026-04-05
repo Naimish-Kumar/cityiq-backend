@@ -1,16 +1,24 @@
 @extends('layouts.main')
 
-@section('content')
-    <div class="page-header animate">
-        <h1 style="font-size: 64px;">About Us</h1>
-        <p style="font-size: 20px; color: var(--grey);">Smart intelligence for urban living.</p>
-    </div>
+@section('title', 'About | CityIQ')
 
-    <div class="section glass-card animate">
-        <h2>Mission & Vision</h2>
-        <p style="margin-top: 20px;">CityIQ is dedicated to simplifying the complex decision-making process for those looking to relocate. Whether you're moving to a new neighborhood or a new city, our goal is to provide data-driven insights that matter to your lifestyle.</p>
-        
-        <h2 style="margin-top: 40px;">How it Works</h2>
-        <p style="margin-top: 20px;">We Aggregate data from hundreds of sources, including city reports, historical data, and real-time user contributions, processed through an AI engine to give you the most accurate 'IQ' score for any location.</p>
-    </div>
+@section('content')
+    <section class="page-hero animate">
+        <p class="eyebrow">About CityIQ</p>
+        <h1>Urban intelligence built for confident moves.</h1>
+        <p>CityIQ helps people understand how a place actually feels to live in, using both structured data and real community insight.</p>
+    </section>
+
+    <section class="section">
+        <div class="content-grid">
+            <article class="glass-card animate">
+                <h2>Mission</h2>
+                <p>Make relocation decisions faster, clearer, and far less risky by turning fragmented location data into practical guidance.</p>
+            </article>
+            <article class="glass-card animate delay-1">
+                <h2>How it works</h2>
+                <p>We combine area scores, cost signals, review sentiment, and operator tooling so both movers and platform admins can act on the same source of truth.</p>
+            </article>
+        </div>
+    </section>
 @endsection

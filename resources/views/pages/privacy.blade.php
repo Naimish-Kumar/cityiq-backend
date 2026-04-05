@@ -1,24 +1,20 @@
 @extends('layouts.main')
 
+@section('title', 'Privacy | CityIQ')
+
 @section('content')
-    <div class="page-header animate">
-        <h1 style="font-size: 64px;">Privacy Policy</h1>
-        <p style="font-size: 18px; color: var(--grey);">Updated: {{ date('F Y') }}</p>
-    </div>
+    <section class="page-hero animate">
+        <p class="eyebrow">Privacy</p>
+        <h1>Your data stays under clear rules.</h1>
+        <p>Updated {{ date('F Y') }}.</p>
+    </section>
 
-    <div class="section glass-card animate">
-        <h2>Your Data, Your Control</h2>
-        <p style="margin-top: 20px;">We believe in transparency when it comes to your personal data. Here's a quick summary of what we collect and how we use it to enhance your urban living experience.</p>
-        
-        <h3 style="margin-top: 30px;">Information We Collect</h3>
-        <ul style="list-style: square; padding-left: 20px; color: var(--grey); margin-top: 10px;">
-            <li>Basic account information when you register</li>
-            <li>Usage statistics of the application features</li>
-            <li>Location preferences for area comparison</li>
-            <li>Feedback and query data shared with AI assistant</li>
-        </ul>
-
-        <h3 style="margin-top: 30px;">How We Use It</h3>
-        <p style="margin-top: 10px;">To tailor your results, improve accuracy of our 'City IQ' scores, and provide personalized insights. We DO NOT sell your personal data to third parties.</p>
-    </div>
+    <section class="section">
+        <article class="glass-card animate prose-card">
+            <h2>What we collect</h2>
+            <p>Basic account data, usage activity, location preferences, and feedback used to improve recommendations and platform performance.</p>
+            <h2>How we use it</h2>
+            <p>To personalize results, improve scoring quality, and support website and dashboard operations. We do not sell user data.</p>
+        </article>
+    </section>
 @endsection

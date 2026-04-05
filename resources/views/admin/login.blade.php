@@ -7,40 +7,39 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/logo/cityiq_logo.png') }}" type="image/x-icon">
 </head>
-<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #010409;">
-    <div class="glass-card animate" style="width: 100%; max-width: 400px; padding: 40px; text-align: center;">
-        <div class="logo" style="justify-content: center; margin-bottom: 30px;">
-            <img src="{{ asset('assets/logo/cityiq_logo.png') }}" alt="Logo">
+<body class="login-body">
+    <section class="login-card glass-card animate">
+        <div class="logo login-logo">
+            <img src="{{ asset('assets/logo/cityiq_logo.png') }}" alt="CityIQ logo">
             <span>Admin IQ</span>
         </div>
-        
-        <h2 style="margin-bottom: 10px;">Welcome Back</h2>
-        <p style="color: var(--grey); margin-bottom: 30px; font-size: 14px;">Authorized Personnel Only</p>
-        
+
+        <p class="eyebrow">Restricted access</p>
+        <h1>Welcome back</h1>
+        <p class="page-copy">Sign in to manage live metrics, users, and platform configuration.</p>
+
         @if(session('error'))
-            <div style="background: rgba(244, 63, 94, 0.1); color: #f43f5e; padding: 12px; border-radius: 12px; margin-bottom: 20px; font-size: 14px; border: 1px solid rgba(244, 63, 94, 0.2);">
+            <div class="alert-error">
                 {{ session('error') }}
             </div>
         @endif
 
-        <form action="{{ route('admin.login.post') }}" method="POST">
+        <form action="{{ route('admin.login.post') }}" method="POST" class="form-stack">
             @csrf
-            <div style="text-align: left; margin-bottom: 20px;">
-                <label style="display: block; font-size: 12px; font-weight: 600; color: var(--grey); text-transform: uppercase; margin-bottom: 8px;">Email Address</label>
-                <input type="email" name="email" required style="width: 100%; background: var(--darker); border: 1px solid var(--border); padding: 14px; border-radius: 12px; color: white; outline: none; font-family: inherit;">
-            </div>
-            
-            <div style="text-align: left; margin-bottom: 30px;">
-                <label style="display: block; font-size: 12px; font-weight: 600; color: var(--grey); text-transform: uppercase; margin-bottom: 8px;">Password</label>
-                <input type="password" name="password" required style="width: 100%; background: var(--darker); border: 1px solid var(--border); padding: 14px; border-radius: 12px; color: white; outline: none; font-family: inherit;">
-            </div>
-            
-            <button type="submit" class="nav-btn" style="width: 100%; padding: 16px; font-size: 16px; cursor: pointer; border: none;">Sign In</button>
+            <label class="input-group">
+                <span>Email Address</span>
+                <input type="email" name="email" required placeholder="admin@cityiq.site">
+            </label>
+
+            <label class="input-group">
+                <span>Password</span>
+                <input type="password" name="password" required placeholder="Enter secure password">
+            </label>
+
+            <button type="submit" class="nav-btn">Sign In</button>
         </form>
-        
-        <div style="margin-top: 30px; font-size: 13px; color: var(--grey);">
-            <a href="{{ route('landing') }}">← Back to Website</a>
-        </div>
-    </div>
+
+        <a href="{{ route('landing') }}" class="back-link">Back to website</a>
+    </section>
 </body>
 </html>

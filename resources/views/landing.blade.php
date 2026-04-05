@@ -1,175 +1,176 @@
 @extends('layouts.main')
 
 @section('content')
-    <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-tag animate">✨ Now covering 120+ global cities</div>
-        <h1 class="animate delay-1">Know Every Corner.<br><span class="text-primary">Before You Move In.</span></h1>
-        <p class="animate delay-2">CityIQ is the world's most advanced urban intelligence platform. Analyze safety metrics, life-cost simulations, and neighborhood vibes with AI precision.</p>
-        
-        <div class="hero-actions animate delay-3">
-             <a href="#" class="nav-btn" style="padding: 16px 40px; font-size: 18px;">Get the App</a>
-             <a href="#features" class="glass-card" style="padding: 16px 40px; border-radius: 14px; margin-bottom: 0;">Explore Data</a>
+        <div class="hero-backdrop"></div>
+        <div class="hero-copy animate">
+            <p class="hero-tag">Live neighborhood intelligence for modern movers</p>
+            <h1>Move with data, not guesswork.</h1>
+            <p class="hero-text">CityIQ turns scattered city signals into one clear picture. Compare safety, cost, lifestyle, and local sentiment before you commit to a move.</p>
+
+            <div class="hero-actions">
+                <a href="#features" class="nav-btn">Explore Features</a>
+                <a href="{{ route('admin.login') }}" class="secondary-btn">Open Dashboard</a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="metric-pill">
+                    <strong>{{ number_format($stats['data_points']) }}+</strong>
+                    <span>Data points modeled</span>
+                </div>
+                <div class="metric-pill">
+                    <strong>{{ number_format($stats['city_profiles']) }}</strong>
+                    <span>City profiles tracked</span>
+                </div>
+                <div class="metric-pill">
+                    <strong>{{ number_format($stats['verified_reviews']) }}</strong>
+                    <span>Verified local reviews</span>
+                </div>
+            </div>
         </div>
 
-        <div class="mockup-container animate delay-3">
-            <div class="app-mockup">
-                <div class="mockup-header">
-                    <div style="width: 60px; height: 4px; background: #334155; border-radius: 2px;"></div>
+        <div class="hero-panel animate delay-1">
+            <div class="hero-card hero-scorecard">
+                <div class="score-topline">
+                    <div>
+                        <span>Featured district</span>
+                        <strong>{{ optional($featuredAreas->first())->name ?? 'No area yet' }}</strong>
+                    </div>
+                    <div class="score-badge">Live</div>
                 </div>
-                <div class="mockup-content">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+
+                @if($featuredAreas->first())
+                    <div class="big-score">{{ number_format((float) $featuredAreas->first()->liveability_score, 1) }}</div>
+                    <div class="score-bars">
                         <div>
-                            <div style="font-size: 10px; color: var(--grey);">Current Location</div>
-                            <div style="font-weight: 700; font-size: 16px;">Dubai Marina</div>
+                            <label>Safety</label>
+                            <progress max="100" value="{{ (float) $featuredAreas->first()->safety_score }}"></progress>
                         </div>
-                        <div style="font-size: 20px;">🇦🇪</div>
-                    </div>
-                    <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--primary); padding: 15px; border-radius: 15px; margin-bottom: 20px;">
-                        <div style="font-size: 10px; color: var(--primary); text-transform: uppercase;">Liveability Score</div>
-                        <div style="font-size: 24px; font-weight: 800; color: #fff;">94.2</div>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        <div style="background: #1e293b; padding: 12px; border-radius: 12px;">
-                            <div style="font-size: 8px; color: var(--grey);">Safety</div>
-                            <div style="font-size: 14px; font-weight: 600;">9.8/10</div>
+                        <div>
+                            <label>Cost Efficiency</label>
+                            <progress max="100" value="{{ (float) $featuredAreas->first()->cost_score }}"></progress>
                         </div>
-                        <div style="background: #1e293b; padding: 12px; border-radius: 12px;">
-                            <div style="font-size: 8px; color: var(--grey);">Cost</div>
-                            <div style="font-size: 14px; font-weight: 600;">Premium</div>
+                        <div>
+                            <label>Lifestyle</label>
+                            <progress max="100" value="{{ (float) $featuredAreas->first()->lifestyle_score }}"></progress>
                         </div>
                     </div>
+                @else
+                    <p class="empty-state">Area data will appear here once records are available.</p>
+                @endif
+            </div>
+
+            <div class="hero-card hero-feed">
+                <p class="eyebrow">Why teams use CityIQ</p>
+                <div class="feed-item">
+                    <strong>Richer relocation decisions</strong>
+                    <span>Compare neighborhoods with a single glance.</span>
+                </div>
+                <div class="feed-item">
+                    <strong>Local signal, not just maps</strong>
+                    <span>Blend hard metrics with human reviews.</span>
+                </div>
+                <div class="feed-item">
+                    <strong>Operator-ready dashboard</strong>
+                    <span>Track users, areas, credentials, and activity.</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Trust Stats -->
-    <div style="background: var(--surface); padding: 60px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-        <div class="section" style="padding: 0; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px; text-align: center;">
-            <div class="animate">
-                <div style="font-size: 40px; font-weight: 800; color: var(--primary);">2.4M+</div>
-                <div style="color: var(--grey); text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Data Points</div>
-            </div>
-            <div class="animate delay-1">
-                <div style="font-size: 40px; font-weight: 800; color: var(--primary);">140+</div>
-                <div style="color: var(--grey); text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">City Profiles</div>
-            </div>
-            <div class="animate delay-2">
-                <div style="font-size: 40px; font-weight: 800; color: var(--primary);">85k</div>
-                <div style="color: var(--grey); text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Happy Movers</div>
-            </div>
+    <section class="section animate" id="features">
+        <div class="section-title">
+            <p class="eyebrow">Feature stack</p>
+            <h2>Everything needed to evaluate a move</h2>
+            <p>Designed for renters, families, operators, and anyone comparing neighborhoods seriously.</p>
         </div>
-    </div>
 
-    <!-- Core Features -->
-    <div class="section" id="features">
-        <div class="section-title animate">
-            <h2>Why CityIQ?</h2>
-            <p>Moving is a gamble. We give you the house odds.</p>
-        </div>
         <div class="feature-grid">
-            <div class="glass-card animate">
-                <div class="icon-box" style="color: var(--primary);">📊</div>
-                <h3>Cost Calculator</h3>
-                <p>Simulate your monthly burn. From groceries in Tokyo to rent in Bangalore, see the real numbers before you sign the lease.</p>
-            </div>
-            <div class="glass-card animate delay-1">
-                <div class="icon-box" style="color: var(--secondary);">🚗</div>
-                <h3>Commute Engine</h3>
-                <p>Plug in your office location and see the stress. We calculate peak traffic, public transport heatmaps, and hidden commute costs.</p>
-            </div>
-            <div class="glass-card animate delay-2">
-                <div class="icon-box" style="color: var(--accent);">🛡️</div>
-                <h3>StreetWise Safety</h3>
-                <p>Neighborhood specific safety scores. Don't just know if the city is safe—know if your specific street is safe after midnight.</p>
-            </div>
+            <article class="glass-card feature-card">
+                <span class="feature-kicker">01</span>
+                <h3>Liveability scoring</h3>
+                <p>Surface the areas that balance safety, commute, affordability, and overall quality of life.</p>
+            </article>
+            <article class="glass-card feature-card">
+                <span class="feature-kicker">02</span>
+                <h3>Cost visibility</h3>
+                <p>Estimate realistic monthly living costs using structured rent and household expense data.</p>
+            </article>
+            <article class="glass-card feature-card">
+                <span class="feature-kicker">03</span>
+                <h3>Community sentiment</h3>
+                <p>Read verified local reviews and pair them with city-level metrics before making a decision.</p>
+            </article>
         </div>
-    </div>
+    </section>
 
-    <!-- Community Insights Showcase -->
-    <div style="background: #010409; padding: 120px 0;">
-        <div class="section">
-            <div class="section-title animate">
-                <h2>Real Voices, Real Data</h2>
-                <p>Direct insights from verified locals who live there today.</p>
-            </div>
-            <div class="feature-grid">
-                <div class="glass-card animate" style="padding: 24px; font-size: 14px;">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary);"></div>
-                        <div style="font-weight: 600;">Esteban Lebsack</div>
-                        <div class="text-primary" style="margin-left: auto;">Verified</div>
+    <section class="section animate">
+        <div class="section-title">
+            <p class="eyebrow">Featured areas</p>
+            <h2>Best performing neighborhoods right now</h2>
+            <p>Drawn directly from the current `areas` dataset.</p>
+        </div>
+
+        <div class="area-grid">
+            @forelse($featuredAreas as $area)
+                <article class="glass-card area-card">
+                    <div class="area-card-top">
+                        <div>
+                            <h3>{{ $area->name }}</h3>
+                            <p>{{ $area->city }}, {{ $area->state }}</p>
+                        </div>
+                        @if($area->is_trending)
+                            <span class="status-badge positive">Trending</span>
+                        @endif
                     </div>
-                    <p style="color: #cbd5e1;">"Best breakfast spots in town are definitely here. Indiranagar has the best breweries but traffic is a nightmare during weekends."</p>
-                    <div style="margin-top: 15px; color: var(--grey);">#Bangalore #Vibes</div>
-                </div>
-                <!-- ... More insights ... -->
-                <div class="glass-card animate delay-1" style="padding: 24px; font-size: 14px;">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--secondary);"></div>
-                        <div style="font-weight: 600;">Sarah Chen</div>
-                        <div class="text-primary" style="margin-left: auto;">Verified</div>
+                    <div class="area-score">{{ number_format((float) $area->liveability_score, 1) }}</div>
+                    <p>{{ $area->description }}</p>
+                    <div class="tag-row">
+                        @foreach(($area->tags ?? []) as $tag)
+                            <span>{{ $tag }}</span>
+                        @endforeach
                     </div>
-                    <p style="color: #cbd5e1;">"Dubai Marina is amazing for walks! The views at night are unmatched, but prepare for higher utilities in the summer."</p>
-                    <div style="margin-top: 15px; color: var(--grey);">#Dubai #Luxury</div>
-                </div>
-            </div>
+                </article>
+            @empty
+                <p class="empty-state">No featured areas available yet.</p>
+            @endforelse
         </div>
-    </div>
+    </section>
 
-    <!-- Pricing Section -->
-    <div class="section" id="pricing">
-        <div class="section-title animate">
-            <h2>Start Your Journey</h2>
-            <p>Choose the plan that fits your relocation needs.</p>
+    <section class="section animate">
+        <div class="section-title">
+            <p class="eyebrow">Testimonials</p>
+            <h2>What locals are saying</h2>
+            <p>Fresh from the current review dataset.</p>
         </div>
-        <div class="pricing-grid">
-            <div class="price-card animate">
-                <h3>Explorer</h3>
-                <div class="price">Free</div>
-                <ul style="text-align: left; color: var(--grey); margin-bottom: 30px;">
-                    <li>✓ Basic City Stats</li>
-                    <li>✓ Top 10 Areas List</li>
-                    <li>✓ Standard Safety Data</li>
-                    <li>✗ AI Assistant</li>
-                </ul>
-                <a href="#" class="nav-btn" style="background: var(--surface); display: block;">Get Started</a>
-            </div>
-            <div class="price-card featured animate delay-1">
-                <h3 class="text-primary">Premium</h3>
-                <div class="price">₹199<span style="font-size: 14px; color: var(--grey);">/mo</span></div>
-                <ul style="text-align: left; color: #fff; margin-bottom: 30px;">
-                    <li>✓ Infinite AI Queries</li>
-                    <li>✓ Custom Cost Simulator</li>
-                    <li>✓ Commute Maps Pro</li>
-                    <li>✓ Street-Level Safety</li>
-                </ul>
-                <a href="#" class="nav-btn" style="display: block;">Go Premium</a>
-            </div>
-            <div class="price-card animate delay-2">
-                <h3>Team</h3>
-                <div class="price">₹999<span style="font-size: 14px; color: var(--grey);">/mo</span></div>
-                <ul style="text-align: left; color: var(--grey); margin-bottom: 30px;">
-                    <li>✓ For Corporate Relocation</li>
-                    <li>✓ Bulk User Management</li>
-                    <li>✓ API Access Entry</li>
-                    <li>✓ Priority Support</li>
-                </ul>
-                <a href="#" class="nav-btn" style="background: var(--surface); display: block;">Contact Sales</a>
-            </div>
-        </div>
-    </div>
 
-    <!-- Final CTA -->
-    <section class="section animate" style="text-align: center; margin-bottom: 100px;">
-        <div class="glass-card" style="padding: 80px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1)); border: 1px solid var(--primary);">
-            <h2 style="font-size: 40px; margin-bottom: 20px;">Ready to make your move?</h2>
-            <p style="margin-bottom: 40px;">Join 85,000+ users making smarter decisions with CityIQ.</p>
-            <div style="display: flex; gap: 20px; justify-content: center;">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Play Store" style="height: 50px;">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" style="height: 50px;">
+        <div class="feature-grid">
+            @forelse($testimonials as $review)
+                <article class="glass-card quote-card">
+                    <div class="quote-head">
+                        <div>
+                            <strong>{{ optional($review->user)->name ?? 'Anonymous' }}</strong>
+                            <span>{{ optional($review->area)->name ?? 'Area' }}</span>
+                        </div>
+                        <span class="status-badge {{ $review->is_verified_local ? 'positive' : 'neutral' }}">
+                            {{ $review->is_verified_local ? 'Verified local' : 'Community voice' }}
+                        </span>
+                    </div>
+                    <p>"{{ $review->content }}"</p>
+                </article>
+            @empty
+                <p class="empty-state">No testimonials available yet.</p>
+            @endforelse
+        </div>
+    </section>
+
+    <section class="section animate">
+        <div class="cta-banner">
+            <div>
+                <p class="eyebrow">Ready to operate smarter?</p>
+                <h2>Give your website and dashboard a sharper CityIQ presence.</h2>
             </div>
+            <a href="{{ route('admin.login') }}" class="nav-btn">Launch Admin</a>
         </div>
     </section>
 @endsection

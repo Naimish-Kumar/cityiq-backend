@@ -9,57 +9,80 @@
     <meta name="description" content="CityIQ helps you analyze and compare cities before you move. Safety, cost, lifestyle and more.">
 </head>
 <body>
-    <nav>
-        <a href="/" class="logo">
-            <img src="{{ asset('assets/logo/cityiq_logo.png') }}" alt="CityIQ">
-            <span>CityIQ</span>
-        </a>
-        <div class="nav-links">
-            <a href="{{ route('landing') }}" class="{{ Request::is('/') ? 'active' : '' }}">Home</a>
-            <a href="{{ route('about') }}" class="{{ Request::is('about') ? 'active' : '' }}">About</a>
-            <a href="{{ route('landing') }}#features">Features</a>
-            <a href="{{ route('landing') }}#pricing">Pricing</a>
-            <a href="{{ route('admin.login') }}" class="nav-btn">Admin Portal</a>
-        </div>
-    </nav>
+    <div class="site-shell">
+        <nav class="site-nav">
+            <a href="{{ route('landing') }}" class="logo">
+                <img src="{{ asset('assets/logo/cityiq_logo.png') }}" alt="CityIQ logo">
+                <span>CityIQ</span>
+            </a>
 
-    <main>
-        @yield('content')
-    </main>
+            <div class="nav-links">
+                <a href="{{ route('landing') }}" class="{{ Request::is('/') ? 'active' : '' }}">Home</a>
+                <a href="{{ route('about') }}" class="{{ Request::is('about') ? 'active' : '' }}">About</a>
+                <a href="{{ route('landing') }}#features">Features</a>
+                <a href="{{ route('faq') }}" class="{{ Request::is('faq') ? 'active' : '' }}">FAQ</a>
+                <a href="{{ route('admin.login') }}" class="nav-btn">Admin Portal</a>
+            </div>
+        </nav>
 
-    <footer>
-        <div class="section" style="padding-top: 0; padding-bottom: 0;">
+        <main>
+            @yield('content')
+        </main>
+
+        <footer class="site-footer">
             <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="logo" style="margin-bottom: 20px;">
-                        <img src="{{ asset('assets/logo/cityiq_logo.png') }}" alt="CityIQ">
+                <div>
+                    <div class="logo footer-logo">
+                        <img src="{{ asset('assets/logo/cityiq_logo.png') }}" alt="CityIQ logo">
                         <span>CityIQ</span>
                     </div>
-                    <p style="color: var(--grey); max-width: 300px;">Smart urban intelligence for better living. Know your city before you move using our advanced AI analytics.</p>
+                    <p>Smart urban intelligence for better living. Explore neighborhoods, compare costs, and move with confidence.</p>
                 </div>
-                <div class="footer-col">
+                <div>
                     <h4>Platform</h4>
                     <ul>
                         <li><a href="{{ route('landing') }}">Home</a></li>
-                        <li><a href="{{ route('about') }}">About Us</a></li>
+                        <li><a href="{{ route('about') }}">About</a></li>
                         <li><a href="{{ route('landing') }}#features">Features</a></li>
                         <li><a href="{{ route('faq') }}">FAQ</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
+                <div>
                     <h4>Legal</h4>
                     <ul>
                         <li><a href="{{ route('privacy') }}">Privacy Policy</a></li>
                         <li><a href="{{ route('terms') }}">Terms</a></li>
-                        <li><a href="#">Security</a></li>
                     </ul>
                 </div>
             </div>
-            
-            <div style="text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--grey); font-size: 14px;">
-                &copy; {{ date('Y') }} CityIQ Analytics. Built with precision for local dwellers.
+
+            <div class="footer-bottom">
+                <span>&copy; {{ date('Y') }} CityIQ Analytics</span>
+                <span>Built for faster, better relocation decisions.</span>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.animate');
+
+            if (!('IntersectionObserver' in window)) {
+                items.forEach((item) => item.classList.add('is-visible'));
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            items.forEach((item) => observer.observe(item));
+        });
+    </script>
 </body>
 </html>

@@ -1,25 +1,26 @@
 @extends('layouts.main')
 
+@section('title', 'FAQ | CityIQ')
+
 @section('content')
-    <div class="page-header animate">
-        <h1 style="font-size: 64px;">FAQ</h1>
-        <p style="font-size: 18px; color: var(--grey);">Common questions about CityIQ.</p>
-    </div>
+    <section class="page-hero animate">
+        <p class="eyebrow">FAQ</p>
+        <h1>Answers to common CityIQ questions.</h1>
+        <p>Short, practical explanations for how the platform works and what the data means.</p>
+    </section>
 
-    <div class="section animate">
-        <div class="glass-card">
-            <h3 style="color: var(--accent);">How is the IQ score calculated?</h3>
-            <p style="margin-top: 10px; color: var(--grey);">Our proprietary algorithm analyzes safety, cost of living, commute times, and lifestyle amenities using real-time data from 50+ sources.</p>
-        </div>
-
-        <div class="glass-card">
-            <h3 style="color: var(--accent);">Is the data updated regularly?</h3>
-            <p style="margin-top: 10px; color: var(--grey);">Yes, most data points (like rent and fuel costs) are updated weekly, while safety reports are integrated daily.</p>
-        </div>
-
-        <div class="glass-card">
-            <h3 style="color: var(--accent);">Can I suggest a new area?</h3>
-            <p style="margin-top: 10px; color: var(--grey);">Absolutely! Use the 'Suggest Area' feature in the mobile app, and our team will verify and add it within 48 hours.</p>
-        </div>
-    </div>
+    <section class="section faq-stack">
+        <article class="glass-card animate">
+            <h3>How is the score calculated?</h3>
+            <p>CityIQ blends safety, cost, commute, and lifestyle signals into a unified liveability score for each area.</p>
+        </article>
+        <article class="glass-card animate delay-1">
+            <h3>Is the data dynamic?</h3>
+            <p>Yes. The dashboard and landing content now pull from the current application database instead of hardcoded placeholders.</p>
+        </article>
+        <article class="glass-card animate delay-2">
+            <h3>Who is this for?</h3>
+            <p>People relocating, real estate operators, internal analysts, and teams comparing neighborhood quality quickly.</p>
+        </article>
+    </section>
 @endsection

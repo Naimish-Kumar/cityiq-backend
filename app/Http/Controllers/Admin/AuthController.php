@@ -24,6 +24,7 @@ class AuthController extends Controller
         // Simple hardcoded check for the demo as requested
         if ($email === 'admin@cityiq.site' && $password === 'admin123') {
             Session::put('admin_logged_in', true);
+            Session::put('admin_email', $email);
             return redirect()->route('admin.dashboard');
         }
 
@@ -33,6 +34,7 @@ class AuthController extends Controller
     public function logout()
     {
         Session::forget('admin_logged_in');
+        Session::forget('admin_email');
         return redirect()->route('landing');
     }
 }
