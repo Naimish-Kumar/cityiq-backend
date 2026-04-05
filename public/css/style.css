@@ -41,6 +41,16 @@ body {
   overflow-x: hidden;
 }
 
+.site-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-shell main {
+  flex: 1 0 auto;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -81,12 +91,18 @@ progress::-moz-progress-bar {
 }
 
 .animate {
-  opacity: 0;
-  transform: translateY(32px);
+  opacity: 1;
+  transform: none;
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-.animate.is-visible {
+.js .animate {
+  opacity: 0;
+  transform: translateY(32px);
+}
+
+.animate.is-visible,
+.js .animate.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -715,6 +731,7 @@ progress::-moz-progress-bar {
 }
 
 .admin-main {
+  min-width: 0;
   padding-top: 36px;
   padding-bottom: 36px;
 }
@@ -833,6 +850,11 @@ progress::-moz-progress-bar {
   vertical-align: top;
 }
 
+.data-table td strong,
+.data-table td span {
+  display: block;
+}
+
 .data-table th {
   color: var(--muted);
   font-size: 0.85rem;
@@ -894,6 +916,12 @@ progress::-moz-progress-bar {
     display: none;
   }
 
+  .site-nav {
+    height: auto;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
   .hero {
     padding-top: 32px;
   }
@@ -905,8 +933,8 @@ progress::-moz-progress-bar {
 
   .hero-actions a,
   .metric-pill,
-  .nav-btn,
-  .secondary-btn {
+  .hero-actions .nav-btn,
+  .hero-actions .secondary-btn {
     width: 100%;
   }
 

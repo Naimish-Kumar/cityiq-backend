@@ -65,6 +65,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('js');
             const items = document.querySelectorAll('.animate');
 
             if (!('IntersectionObserver' in window)) {
