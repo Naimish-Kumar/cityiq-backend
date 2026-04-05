@@ -15,7 +15,7 @@
                 <span>Admin IQ</span>
             </div>
             
-            <nav class="side-nav" style="background: none; position: static; border: none; padding: 0;">
+            <nav class="side-nav">
                 <a href="{{ route('admin.dashboard') }}" class="{{ Route::currentRouteName() == 'admin.dashboard' ? 'active' : '' }}">
                     <span>📊</span> Dashboard
                 </a>
@@ -31,7 +31,9 @@
             </nav>
 
             <div style="margin-top: auto; padding: 20px; border-top: 1px solid var(--border);">
-                 <a href="{{ route('landing') }}" style="color: var(--grey);">Log Out</a>
+                 <a href="{{ route('admin.logout') }}" style="color: var(--grey); display: flex; align-items: center; gap: 10px;">
+                    <span>🚪</span> Log Out
+                 </a>
             </div>
         </aside>
 
