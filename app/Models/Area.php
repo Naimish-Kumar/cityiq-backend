@@ -53,4 +53,24 @@ class Area extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function scoreHistories()
+    {
+        return $this->hasMany(AreaScoreHistory::class);
+    }
+
+    public function costCalculations()
+    {
+        return $this->hasMany(CostCalculation::class);
+    }
+
+    public function commuteSimulations()
+    {
+        return $this->hasMany(CommuteSimulation::class);
+    }
+
+    public function alerts()
+    {
+        return $this->hasMany(AreaAlert::class);
+    }
 }

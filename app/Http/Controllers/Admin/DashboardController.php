@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Area;
 use App\Models\AiQuery;
+use App\Models\AreaAlert;
+use App\Models\AreaScoreHistory;
+use App\Models\CommuteSimulation;
+use App\Models\CostCalculation;
 use App\Models\Review;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
@@ -23,9 +27,13 @@ class DashboardController extends Controller
                     'avg_cost' => '₹0',
                     'api_calls' => 0,
                     'verified_reviews' => 0,
+                    'cost_runs' => 0,
+                    'commute_runs' => 0,
                 ],
                 'activityFeed' => collect(),
                 'topAreas' => collect(),
+                'opsSummary' => collect(),
+                'recentAlerts' => collect(),
                 'adminProfile' => [
                     'name' => 'System Administrator',
                     'email' => Session::get('admin_email', 'admin@cityiq.site'),
@@ -87,7 +95,19 @@ class DashboardController extends Controller
             'avg_cost' => '₹' . number_format($averageRent ?: 0),
             'api_calls' => AiQuery::count() + Review::count(),
             'verified_reviews' => Review::where('is_verified_local', true)->count(),
+            'cost_runs' => CostCalculation::count(),
+            'commute_runs' => CommuteSimulation::count(),
         ];
+
+        $opsSummary = collect([
+            ['label' => 'AI queries', 'value' => AiQuery::count(), 'hint' => 'assistant sessions stored'],
+            ['label' => 'Cost calculations', 'value' => CostCalculation::count(), 'hint' => 'budget plans generated'],
+            ['label' => 'Commute simulations', 'value' => CommuteSimulation::count(), 'hint' => 'peak/off-peak runs'],
+            ['label' => 'Unread alerts', 'value' => AreaAlert::where('is_read', false)->count(), 'hint' => 'saved area changes pending'],
+            ['label' => 'Score snapshots', 'value' => AreaScoreHistory::count(), 'hint' => 'historical trend points'],
+        ]);
+
+        $recentAlerts = AreaAlert::query()->with('area')->latest()->take(5)->get();
 
         $adminProfile = [
             'name' => 'System Administrator',
@@ -95,7 +115,7 @@ class DashboardController extends Controller
             'initial' => strtoupper(substr(Session::get('admin_email', 'A'), 0, 1)),
         ];
 
-        return view('admin.dashboard', compact('stats', 'activityFeed', 'topAreas', 'adminProfile'));
+        return view('admin.dashboard', compact('stats', 'activityFeed', 'topAreas', 'opsSummary', 'recentAlerts', 'adminProfile'));
     }
 
     public function credentials()
@@ -205,6 +225,10 @@ class DashboardController extends Controller
         return Schema::hasTable('users')
             && Schema::hasTable('areas')
             && Schema::hasTable('reviews')
-            && Schema::hasTable('ai_queries');
+            && Schema::hasTable('ai_queries')
+            && Schema::hasTable('cost_calculations')
+            && Schema::hasTable('commute_simulations')
+            && Schema::hasTable('area_alerts')
+            && Schema::hasTable('area_score_histories');
     }
 }

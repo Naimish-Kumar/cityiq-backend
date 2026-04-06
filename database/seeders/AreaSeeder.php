@@ -165,7 +165,10 @@ class AreaSeeder extends Seeder
         ];
 
         foreach ($areas as $areaData) {
-            Area::create($areaData);
+            Area::updateOrCreate(
+                ['name' => $areaData['name'], 'city' => $areaData['city']],
+                $areaData
+            );
         }
     }
 }

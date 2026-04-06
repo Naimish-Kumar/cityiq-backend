@@ -14,7 +14,7 @@ class SavedAreaController extends Controller
     public function index(Request $request)
     {
         $savedAreas = $request->user()->savedAreas()->with('area')->get();
-        return response()->json($savedAreas->pluck('area'));
+        return response()->json($savedAreas);
     }
 
     /**

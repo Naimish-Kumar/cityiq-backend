@@ -35,12 +35,13 @@ class AiQuerySeeder extends Seeder
         ];
 
         foreach ($queries as $data) {
-            AiQuery::create([
-                'user_id' => $testUser->id,
-                'query' => $data['query'],
-                'response' => $data['response'],
-                'type' => $data['type'],
-            ]);
+            AiQuery::updateOrCreate(
+                ['user_id' => $testUser->id, 'query' => $data['query']],
+                [
+                    'response' => $data['response'],
+                    'type' => $data['type'],
+                ]
+            );
         }
     }
 }

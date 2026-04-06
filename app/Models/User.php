@@ -65,4 +65,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(AiQuery::class);
     }
+
+    public function costCalculations()
+    {
+        return $this->hasMany(CostCalculation::class);
+    }
+
+    public function commuteSimulations()
+    {
+        return $this->hasMany(CommuteSimulation::class);
+    }
+
+    public function alerts()
+    {
+        return $this->hasMany(AreaAlert::class);
+    }
 }

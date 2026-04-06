@@ -17,6 +17,9 @@
 
             <nav class="side-nav">
                 <a href="{{ route('admin.dashboard') }}" class="{{ Route::is('admin.dashboard') ? 'active' : '' }}">Overview</a>
+                <a href="{{ route('admin.areas') }}" class="{{ Route::is('admin.areas*') ? 'active' : '' }}">Areas</a>
+                <a href="{{ route('admin.reviews') }}" class="{{ Route::is('admin.reviews*') ? 'active' : '' }}">Reviews</a>
+                <a href="{{ route('admin.intelligence') }}" class="{{ Route::is('admin.intelligence') ? 'active' : '' }}">Intelligence</a>
                 <a href="{{ route('admin.credentials') }}" class="{{ Route::is('admin.credentials') ? 'active' : '' }}">Credentials</a>
                 <a href="{{ route('admin.users') }}" class="{{ Route::is('admin.users') ? 'active' : '' }}">Users</a>
                 <a href="{{ route('admin.settings') }}" class="{{ Route::is('admin.settings') ? 'active' : '' }}">Settings</a>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\OperationsController;
 
 // Public Pages
 Route::get('/', [PagesController::class, 'landing'])->name('landing');
@@ -23,6 +24,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/credentials', [DashboardController::class, 'credentials'])->name('credentials');
         Route::get('/users', [DashboardController::class, 'users'])->name('users');
+        Route::get('/areas', [OperationsController::class, 'areas'])->name('areas');
+        Route::post('/areas/save', [OperationsController::class, 'saveArea'])->name('areas.save');
+        Route::post('/areas/{id}/delete', [OperationsController::class, 'deleteArea'])->name('areas.delete');
+        Route::get('/reviews', [OperationsController::class, 'reviews'])->name('reviews');
+        Route::post('/reviews/{id}/update', [OperationsController::class, 'updateReview'])->name('reviews.update');
+        Route::post('/reviews/{id}/delete', [OperationsController::class, 'deleteReview'])->name('reviews.delete');
+        Route::get('/intelligence', [OperationsController::class, 'intelligence'])->name('intelligence');
         Route::get('/settings', [DashboardController::class, 'settings'])->name('settings');
     });
 });

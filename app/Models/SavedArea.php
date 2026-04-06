@@ -14,6 +14,10 @@ class SavedArea extends Model
         'area_id',
     ];
 
+    protected $appends = [
+        'latest_alert',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -22,5 +26,14 @@ class SavedArea extends Model
     public function area()
     {
         return $this->belongsTo(Area::class);
+    }
+
+    public function getLatestAlertAttribute()
+    {
+        return AreaAlert::query()
+            ->where('user_id', $this->user_id)
+            ->where('area_id', $this->area_id)
+            ->latest()
+            ->first();
     }
 }

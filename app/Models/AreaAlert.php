@@ -5,35 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Review extends Model
+class AreaAlert extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
         'area_id',
+        'type',
         'title',
-        'content',
-        'category',
-        'rating',
-        'tags',
-        'likes',
-        'downvotes',
-        'is_verified_local',
-        'moderation_status',
-        'is_flagged',
-        'expires_at',
+        'message',
+        'previous_score',
+        'current_score',
+        'is_read',
         'meta',
     ];
 
     protected $casts = [
-        'tags' => 'array',
-        'rating' => 'integer',
-        'likes' => 'integer',
-        'downvotes' => 'integer',
-        'is_verified_local' => 'boolean',
-        'is_flagged' => 'boolean',
-        'expires_at' => 'datetime',
+        'previous_score' => 'decimal:2',
+        'current_score' => 'decimal:2',
+        'is_read' => 'boolean',
         'meta' => 'array',
     ];
 

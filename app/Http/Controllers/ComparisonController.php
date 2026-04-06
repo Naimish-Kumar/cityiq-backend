@@ -18,10 +18,17 @@ class ComparisonController extends Controller
         ]);
 
         $areas = Area::whereIn('id', $request->ids)->get();
+        $winner = [
+            'liveability' => optional($areas->sortByDesc('liveability_score')->first())->name,
+            'safety' => optional($areas->sortByDesc('safety_score')->first())->name,
+            'cost' => optional($areas->sortByDesc('cost_score')->first())->name,
+            'commute' => optional($areas->sortByDesc('commute_score')->first())->name,
+            'lifestyle' => optional($areas->sortByDesc('lifestyle_score')->first())->name,
+        ];
 
-        // Optional: Perform specific logic to figure out a "winner" in certain categories
-        // or just return the raw data for the frontend to render the comparison table.
-        
-        return response()->json($areas);
+        return response()->json([
+            'areas' => $areas,
+            'winner_matrix' => $winner,
+        ]);
     }
 }

@@ -8,6 +8,9 @@ use App\Http\Controllers\SavedAreaController;
 use App\Http\Controllers\AiQueryController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ComparisonController;
+use App\Http\Controllers\CostCalculatorController;
+use App\Http\Controllers\CommuteSimulationController;
+use App\Http\Controllers\AlertController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,9 +43,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/ai/history', [AiQueryController::class, 'index']);
     Route::post('/ai/query', [AiQueryController::class, 'store']);
 
+    // Cost calculator + commute simulator
+    Route::get('/cost-calculator/history', [CostCalculatorController::class, 'index']);
+    Route::post('/cost-calculator', [CostCalculatorController::class, 'store']);
+    Route::post('/cost-calculator/preview', [CostCalculatorController::class, 'preview']);
+    Route::get('/commute/history', [CommuteSimulationController::class, 'index']);
+    Route::post('/commute/simulate', [CommuteSimulationController::class, 'store']);
+
+    // Alerts
+    Route::get('/alerts', [AlertController::class, 'index']);
+    Route::post('/alerts/{id}/read', [AlertController::class, 'markRead']);
+
     // Community Feed / Reviews (Module 4)
     Route::post('/reviews', [ReviewController::class, 'store']);
-    Route::post('/reviews/{id}/like', [ReviewController::class, 'like']);
+    Route::post('/reviews/{id}/vote', [ReviewController::class, 'vote']);
 });
 
 // Public Review Routes
@@ -55,4 +69,5 @@ Route::post('/compare', [ComparisonController::class, 'compare']);
 // Area Routes (Public facing typically, so anyone can search)
 Route::get('/areas', [AreaController::class, 'index']);
 Route::get('/areas/trending', [AreaController::class, 'trending']);
+Route::get('/areas/{id}/score-history', [AreaController::class, 'scoreHistory']);
 Route::get('/areas/{id}', [AreaController::class, 'show']);

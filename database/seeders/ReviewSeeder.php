@@ -49,14 +49,33 @@ class ReviewSeeder extends Seeder
         foreach ($areas as $area) {
             if (isset($contents[$area->name])) {
                 foreach ($contents[$area->name] as $index => $text) {
-                    Review::create([
+                    Review::firstOrCreate([
                         'user_id' => $allUsers->random()->id,
                         'area_id' => $area->id,
                         'content' => $text,
+                    ], [
+                        'user_id' => $allUsers->random()->id,
+                        'area_id' => $area->id,
+                        'title' => match ($area->name) {
+                            'Koramangala' => 'Buzzing but demanding',
+                            'Indiranagar' => 'Great social life, pricey rents',
+                            'HSR Layout' => 'Balanced choice for young professionals',
+                            'Dubai Marina' => 'Premium expat waterfront',
+                            default => 'Local reality check',
+                        },
+                        'content' => $text,
+                        'category' => collect(['Safety', 'Noise', 'Infrastructure', 'Food', 'Flooding', 'Social'])->random(),
                         'rating' => rand(4, 5),
                         'tags' => ['vibes', 'community'],
                         'likes' => rand(5, 50),
+                        'downvotes' => rand(0, 4),
                         'is_verified_local' => ($index % 2 == 0),
+                        'moderation_status' => 'approved',
+                        'expires_at' => now()->addDays(90 - ($index * 5)),
+                        'meta' => [
+                            'source' => 'seeded_community_post',
+                            'confidence' => rand(78, 96),
+                        ],
                     ]);
                 }
             }
