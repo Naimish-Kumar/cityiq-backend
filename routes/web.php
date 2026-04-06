@@ -30,6 +30,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/reviews', [OperationsController::class, 'reviews'])->name('reviews');
         Route::post('/reviews/{id}/update', [OperationsController::class, 'updateReview'])->name('reviews.update');
         Route::post('/reviews/{id}/delete', [OperationsController::class, 'deleteReview'])->name('reviews.delete');
+        Route::get('/countries', [OperationsController::class, 'countries'])->name('countries');
+        Route::get('/visa-requirements', [OperationsController::class, 'visaRequirements'])->name('visa-requirements');
         Route::get('/intelligence', [OperationsController::class, 'intelligence'])->name('intelligence');
         Route::get('/settings', [DashboardController::class, 'settings'])->name('settings');
     });

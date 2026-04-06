@@ -48,19 +48,19 @@
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px">
         <div class="zenith-card">
-            <div style="font-size: 32px; margin-bottom: 20px">🛰️</div>
+            <div style="font-size: 28px; margin-bottom: 20px; color: var(--primary)"><i class="fa-solid fa-shield-halved"></i></div>
             <h3 style="margin-bottom: 12px; font-size: 18px">Safety Intelligence</h3>
             <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.7">Proprietary scoring system weighing geopolitical stability, local crime metrics, and environmental hazards.</p>
         </div>
 
         <div class="zenith-card" style="border-color: rgba(251, 191, 36, 0.2)">
-            <div style="font-size: 32px; margin-bottom: 20px">🚅</div>
+            <div style="font-size: 28px; margin-bottom: 20px; color: var(--accent)"><i class="fa-solid fa-train-subway"></i></div>
             <h3 style="margin-bottom: 12px; font-size: 18px">Transport Reality</h3>
             <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.7">Simulated wait times and cost-gap analysis for metros, ride-shares, and local transit across global provinces.</p>
         </div>
 
         <div class="zenith-card" style="border-color: rgba(56, 189, 248, 0.2)">
-            <div style="font-size: 32px; margin-bottom: 20px">🤖</div>
+            <div style="font-size: 28px; margin-bottom: 20px; color: var(--primary-alt)"><i class="fa-solid fa-microchip"></i></div>
             <h3 style="margin-bottom: 12px; font-size: 18px">AI Tour Guide</h3>
             <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.7">Context-aware conversational planning that adapts to your itinerary, budget, and cultural preferences.</p>
         </div>

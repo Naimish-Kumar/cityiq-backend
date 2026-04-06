@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'CityIQ — Global Intelligence')</title>
     <link rel="stylesheet" href="{{ asset('css/zenith.css') }}">
-    <script src="https://kit.fontawesome.com/your-fa-key.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     @yield('styles')
 </head>

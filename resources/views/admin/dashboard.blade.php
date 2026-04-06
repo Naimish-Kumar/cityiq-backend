@@ -38,8 +38,8 @@
         <div style="padding: 0">
             @foreach($activityFeed as $act)
             <div style="padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; gap: 20px; align-items: center; transition: background 0.3s" onmouseover="this.style.background='rgba(56, 189, 248, 0.02)'" onmouseout="this.style.background='transparent'">
-                <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px">
-                    {{ $act['tone'] == 'positive' ? '🌏' : '🤖' }}
+                <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--primary)">
+                    <i class="fa-solid {{ $act['tone'] == 'positive' ? 'fa-globe' : 'fa-robot' }}"></i>
                 </div>
                 <div style="flex: 1">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 4px">

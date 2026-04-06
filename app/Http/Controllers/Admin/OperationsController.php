@@ -10,6 +10,9 @@ use App\Models\AreaScoreHistory;
 use App\Models\CommuteSimulation;
 use App\Models\CostCalculation;
 use App\Models\Review;
+use App\Models\Country;
+use App\Models\VisaRequirement;
+use App\Models\HealthGuide;
 use Illuminate\Http\Request;
 
 class OperationsController extends Controller
@@ -169,5 +172,17 @@ class OperationsController extends Controller
             'alerts',
             'scoreHistories'
         ));
+    }
+
+    public function countries()
+    {
+        $countries = Country::query()->get();
+        return view('admin.countries', compact('countries'));
+    }
+
+    public function visaRequirements()
+    {
+        $visaRequirements = VisaRequirement::query()->with('country')->get();
+        return view('admin.visa_requirements', compact('visaRequirements'));
     }
 }

@@ -1,95 +1,64 @@
 @extends('layouts.admin')
 
-@section('title', 'Intelligence | CityIQ Admin')
+@section('title', 'Neural Intelligence Pulse — AI & Simulation Logs')
 
 @section('content')
-    <section class="admin-page">
-        <header class="admin-header">
-            <div>
-                <p class="eyebrow">Operational intelligence</p>
-                <h1>AI, Simulations, and Alerts</h1>
-                <p class="page-copy">Monitor how the PRD-backed product systems are being used across queries, budgets, commutes, and saved-area changes.</p>
-            </div>
-        </header>
-
-        <div class="settings-grid">
-            <section class="panel-card">
-                <p class="eyebrow">AI Assistant</p>
-                <h2>{{ $aiQueries->count() }} recent queries</h2>
-                @foreach($aiQueries as $query)
-                    <div class="mini-row">
-                        <strong>{{ optional($query->user)->name ?? 'Anonymous' }}</strong>
-                        <span>{{ $query->query }}</span>
-                    </div>
-                @endforeach
-            </section>
-
-            <section class="panel-card">
-                <p class="eyebrow">Cost Calculator</p>
-                <h2>{{ $costCalculations->count() }} recent runs</h2>
-                @foreach($costCalculations as $item)
-                    <div class="mini-row">
-                        <strong>{{ optional($item->area)->name }} | {{ $item->currency }} {{ number_format((float) $item->estimated_total, 0) }}</strong>
-                        <span>{{ $item->lifestyle_tier }} | savings {{ number_format((float) $item->savings_percentage, 1) }}%</span>
-                    </div>
-                @endforeach
-            </section>
-
-            <section class="panel-card">
-                <p class="eyebrow">Commute Simulator</p>
-                <h2>{{ $commuteSimulations->count() }} recent runs</h2>
-                @foreach($commuteSimulations as $item)
-                    <div class="mini-row">
-                        <strong>{{ optional($item->area)->name }} to {{ $item->work_location }}</strong>
-                        <span>{{ $item->peak_minutes }} min peak | {{ ucfirst($item->stress_level) }}</span>
-                    </div>
-                @endforeach
-            </section>
-
-            <section class="panel-card">
-                <p class="eyebrow">Area Alerts</p>
-                <h2>{{ $alerts->count() }} recent alerts</h2>
-                @foreach($alerts as $alert)
-                    <div class="mini-row">
-                        <strong>{{ $alert->title }}</strong>
-                        <span>{{ optional($alert->area)->name }} | {{ $alert->message }}</span>
-                    </div>
-                @endforeach
-            </section>
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 32px">
+    <!-- 👁️ AI Query Logs -->
+    <div class="zenith-card" style="padding: 0; overflow: hidden">
+        <div style="padding: 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center">
+            <h3 style="font-size: 18px">Neural Signal Stream</h3>
+            <div style="font-size: 10px; font-weight: 900; color: var(--primary); text-transform: uppercase; border: 1px solid rgba(56, 189, 248, 0.2); padding: 4px 8px; border-radius: 4px">Active v3 Cortex</div>
         </div>
-
-        <section class="panel-card">
-            <div class="panel-head">
-                <div>
-                    <p class="eyebrow">Score history</p>
-                    <h2>Latest score snapshots</h2>
+        <div style="padding: 0">
+            @foreach($aiQueries as $query)
+            <div style="padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; gap: 20px; align-items: center; transition: background 0.3s" onmouseover="this.style.background='rgba(56, 189, 248, 0.02)'" onmouseout="this.style.background='transparent'">
+                <div style="width: 44px; height: 44px; background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--primary)">
+                    <i class="fa-solid {{ $query->type == 'tour_guide' ? 'fa-map-location-dot' : 'fa-brain' }}"></i>
+                </div>
+                <div style="flex: 1">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px">
+                        <span style="font-size: 14px; font-weight: 800; color: white">{{ $query->user->name or 'Entity: ' . substr($query->id, 0, 8) }}</span>
+                        <span style="font-size: 11px; color: var(--text-secondary)">{{ $query->created_at->diffForHumans() }}</span>
+                    </div>
+                    <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.5; font-family: 'Monaco', 'Courier New', monospace; background: rgba(0,0,0,0.1); padding: 8px; border-radius: 6px; border: 1px solid var(--border)">
+                        "{{ str($query->query)->limit(120) }}"
+                    </div>
                 </div>
             </div>
+            @endforeach
+        </div>
+    </div>
 
-            <div class="table-wrap">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Area</th>
-                            <th>Liveability</th>
-                            <th>Breakdown</th>
-                            <th>Captured</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($scoreHistories as $history)
-                            <tr>
-                                <td><strong>{{ optional($history->area)->name }}</strong><span>{{ optional($history->area)->city }}</span></td>
-                                <td>{{ number_format((float) $history->liveability_score, 1) }}</td>
-                                <td>S {{ number_format((float) $history->safety_score, 0) }} | C {{ number_format((float) $history->cost_score, 0) }} | M {{ number_format((float) $history->commute_score, 0) }} | L {{ number_format((float) $history->lifestyle_score, 0) }}</td>
-                                <td>{{ optional($history->captured_at)->diffForHumans() }}</td>
-                            </tr>
-                        @empty
-                            <tr><td colspan="4" class="empty-table">No intelligence records yet.</td></tr>
-                        @endforelse
-                    </tbody>
-                </table>
+    <!-- 📊 Simulation Pulse -->
+    <div style="display: flex; flex-direction: column; gap: 24px">
+        <div class="zenith-card shimmer">
+            <h4 style="font-size: 14px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px">Simulation Pulse</h4>
+            <div style="display: flex; flex-direction: column; gap: 16px">
+                 <div style="display: flex; justify-content: space-between; align-items: center">
+                    <span style="font-size: 12px; color: var(--text-secondary)">Travel Cost Runs</span>
+                    <span style="font-family: 'Outfit'; font-weight: 800; color: var(--success)">{{ $costCalculations->count() }} active</span>
+                 </div>
+                 <div style="display: flex; justify-content: space-between; align-items: center">
+                    <span style="font-size: 12px; color: var(--text-secondary)">Commute Simulations</span>
+                    <span style="font-family: 'Outfit'; font-weight: 800; color: var(--primary)">{{ $commuteSimulations->count() }} active</span>
+                 </div>
+                 <div style="display: flex; justify-content: space-between; align-items: center">
+                    <span style="font-size: 12px; color: var(--text-secondary)">Neural Alert Feed</span>
+                    <span style="font-family: 'Outfit'; font-weight: 800; color: var(--error)">{{ $alerts->count() }} reports</span>
+                 </div>
             </div>
-        </section>
-    </section>
+        </div>
+
+        <div class="zenith-card">
+            <h4 style="font-size: 14px; margin-bottom: 20px">Historical Precision</h4>
+            @foreach($scoreHistories as $hist)
+            <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border)">
+                <span style="color: var(--text-secondary)">{{ $hist->area->name or 'Global' }} Indexing</span>
+                <span style="font-weight: 800; color: var(--primary)">{{ $hist->liveability_score }}% Confidence</span>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
 @endsection

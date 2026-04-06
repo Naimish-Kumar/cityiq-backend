@@ -18,21 +18,21 @@
             </div>
             
             <nav>
-                <a href="{{ route('admin.dashboard') }}" class="side-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                    <span>📊</span> Systems Overview
-                </a>
-                <a href="#" class="side-link">
-                    <span>🌍</span> Global Index
-                </a>
-                <a href="#" class="side-link">
-                    <span>🛡️</span> Security Nodes
-                </a>
-                <a href="#" class="side-link">
-                    <span>🤖</span> Neural Logs
-                </a>
-                <a href="#" class="side-link">
-                    <span>⚙️</span> Core Services
-                </a>
+        <a href="{{ route('admin.dashboard') }}" class="side-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+            <i class="fa-solid fa-chart-line"></i> Systems Overview
+        </a>
+        <a href="{{ route('admin.countries') }}" class="side-link {{ request()->routeIs('admin.countries') ? 'active' : '' }}">
+            <i class="fa-solid fa-earth-americas"></i> Global Index
+        </a>
+        <a href="{{ route('admin.visa-requirements') }}" class="side-link {{ request()->routeIs('admin.visa-requirements') ? 'active' : '' }}">
+            <i class="fa-solid fa-passport"></i> Visa Navigator
+        </a>
+        <a href="{{ route('admin.intelligence') }}" class="side-link {{ request()->routeIs('admin.intelligence') ? 'active' : '' }}">
+            <i class="fa-solid fa-brain"></i> Neural Logs
+        </a>
+        <a href="{{ route('admin.settings') }}" class="side-link {{ request()->routeIs('admin.settings') ? 'active' : '' }}">
+            <i class="fa-solid fa-gears"></i> Core Services
+        </a>
             </nav>
             
             <div style="margin-top: auto; padding-top: 40px">
