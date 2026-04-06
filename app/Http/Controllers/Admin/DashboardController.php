@@ -93,7 +93,9 @@ class DashboardController extends Controller
         $stats = [
             'total_users' => User::count(),
             'active_areas' => Area::count(),
-            'active_countries' => \App\Models\Country::count(),
+            'total_countries' => \App\Models\Country::count(),
+            'visa_rules' => \App\Models\VisaRequirement::count(),
+            'ai_sessions' => AiQuery::count(),
             'avg_cost' => '₹' . number_format($averageRent ?: 0),
             'api_calls' => AiQuery::count() + Review::count(),
             'verified_reviews' => Review::where('is_verified_local', true)->count(),

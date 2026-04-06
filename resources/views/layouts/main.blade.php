@@ -10,6 +10,9 @@
     @yield('styles')
 </head>
 <body>
+    <div class="mesh-bg"></div>
+    <div class="grid-overlay"></div>
+
     <nav class="glass-nav">
         <div class="brand">
             <span style="color: var(--primary)">City</span>IQ <span class="hero-tag" style="margin-left: 10px; vertical-align: middle">v2.0</span>
