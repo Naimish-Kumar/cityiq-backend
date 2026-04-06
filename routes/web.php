@@ -34,5 +34,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/visa-requirements', [OperationsController::class, 'visaRequirements'])->name('visa-requirements');
         Route::get('/intelligence', [OperationsController::class, 'intelligence'])->name('intelligence');
         Route::get('/settings', [DashboardController::class, 'settings'])->name('settings');
+        Route::post('/settings', [DashboardController::class, 'updateSettings'])->name('settings.update');
     });
 });

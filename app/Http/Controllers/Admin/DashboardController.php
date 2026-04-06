@@ -178,37 +178,58 @@ class DashboardController extends Controller
 
     public function settings()
     {
-        $databasePath = database_path('database.sqlite');
+        return view('admin.settings');
+    }
 
-        $settings = [
-            [
-                'label' => 'Environment',
-                'value' => strtoupper((string) config('app.env')),
-                'hint' => 'Current application environment.',
-            ],
-            [
-                'label' => 'Debug Mode',
-                'value' => config('app.debug') ? 'Enabled' : 'Disabled',
-                'hint' => 'Controls verbose application error output.',
-            ],
-            [
-                'label' => 'Session Driver',
-                'value' => strtoupper((string) config('session.driver')),
-                'hint' => 'Where authenticated session state is stored.',
-            ],
-            [
-                'label' => 'Queue Driver',
-                'value' => strtoupper((string) config('queue.default')),
-                'hint' => 'Background jobs transport layer.',
-            ],
-            [
-                'label' => 'Database Size',
-                'value' => File::exists($databasePath) ? number_format(File::size($databasePath) / 1024, 1) . ' KB' : 'Not found',
-                'hint' => 'SQLite storage footprint on this environment.',
-            ],
-        ];
+    public function updateSettings(\Illuminate\Http\Request $request)
+    {
+        $type = $request->input('type');
 
-        return view('admin.settings', compact('settings'));
+        if ($type === 'smtp') {
+            $this->updateEnv([
+                'MAIL_HOST' => $request->input('mail_host'),
+                'MAIL_PORT' => $request->input('mail_port'),
+                'MAIL_USERNAME' => $request->input('mail_username'),
+                'MAIL_PASSWORD' => $request->input('mail_password'),
+                'MAIL_ENCRYPTION' => $request->input('mail_encryption'),
+                'MAIL_FROM_ADDRESS' => $request->input('mail_username'),
+            ]);
+        } elseif ($type === 'firebase') {
+            $this->updateEnv([
+                'FIREBASE_PROJECT_ID' => $request->input('firebase_project_id'),
+                'FIREBASE_API_KEY' => $request->input('firebase_api_key'),
+            ]);
+
+            if ($request->hasFile('firebase_json')) {
+                $request->file('firebase_json')->move(storage_path('app/firebase'), 'service-account.json');
+            }
+        }
+
+        return back()->with('success', 'Neural nodes synchronized successfully.');
+    }
+
+    private function updateEnv(array $data)
+    {
+        $path = base_path('.env');
+
+        if (File::exists($path)) {
+            $content = File::get($path);
+
+            foreach ($data as $key => $value) {
+                if ($value === null) continue;
+                
+                $pattern = "/^{$key}=\"?([^\"]*)\"?/m";
+                $replacement = "{$key}=\"{$value}\"";
+
+                if (preg_match($pattern, $content)) {
+                    $content = preg_replace($pattern, $replacement, $content);
+                } else {
+                    $content .= "\n{$key}=\"{$value}\"";
+                }
+            }
+
+            File::put($path, $content);
+        }
     }
 
     private function maskValue(?string $value): string
