@@ -80,21 +80,34 @@
                 <input type="text" name="firebase_api_key" class="zenith-input" value="{{ env('FIREBASE_API_KEY') }}" style="width: 100%; padding: 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; color: white">
             </div>
 
+            <button type="submit" class="btn-zenith" style="width: 100%; padding: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; background: #F59E0B; border: none; color: white">Initialize Cloud Engine</button>
+        </form>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr; margin-top: 32px">
+    <!-- 🤖 Gemini Neural Intelligence -->
+    <div class="zenith-card" style="padding: 32px">
+        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 32px">
+            <div style="width: 48px; height: 48px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #8B5CF6; font-size: 20px">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+            <div>
+                <h3 style="font-size: 18px; margin-bottom: 4px">Gemini Neural Hub</h3>
+                <p style="color: var(--text-secondary); font-size: 12px">Advanced generative intelligence power source.</p>
+            </div>
+        </div>
+
+        <form action="{{ route('admin.settings.update') }}" method="POST">
+            @csrf
+            <input type="hidden" name="type" value="gemini">
+            
             <div style="margin-bottom: 32px">
-                <label style="display: block; font-size: 10px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px">Service Account Manifest (.json)</label>
-                <div style="padding: 24px; border: 2px dashed var(--border); border-radius: 12px; text-align: center; cursor: pointer" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">
-                    <i class="fa-solid fa-cloud-arrow-up" style="font-size: 24px; color: var(--primary); margin-bottom: 12px"></i>
-                    <p style="font-size: 11px; color: var(--text-secondary)">Drag and drop neural manifest or click to sync</p>
-                    <input type="file" name="firebase_json" style="opacity: 0; position: absolute; left: 0; top: 0; width: 100%; height: 100%; cursor: pointer">
-                </div>
-                @if(file_exists(storage_path('app/firebase/service-account.json')))
-                <div style="margin-top: 12px; font-size: 10px; color: var(--success); display: flex; align-items: center; gap: 6px">
-                    <i class="fa-solid fa-check-double"></i> Manifest Verified & Active
-                </div>
-                @endif
+                <label style="display: block; font-size: 10px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px">Neural Interface Key (GEMINI_API_KEY)</label>
+                <input type="password" name="gemini_api_key" class="zenith-input" value="{{ env('GEMINI_API_KEY') ? '••••••••••••••••' : '' }}" placeholder="Enter your Google Gemini API Key" style="width: 100%; padding: 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; color: white">
             </div>
 
-            <button type="submit" class="btn-zenith" style="width: 100%; padding: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; background: #F59E0B; border: none; color: white">Initialize Cloud Engine</button>
+            <button type="submit" class="btn-zenith" style="width: 100%; padding: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; background: #8B5CF6; border: none; color: white">Activate Neural Hub</button>
         </form>
     </div>
 </div>

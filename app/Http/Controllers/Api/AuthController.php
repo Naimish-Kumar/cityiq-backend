@@ -100,18 +100,64 @@ class AuthController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
+        $otp = rand(100000, 999999);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'verification_otp' => $otp,
         ]);
+
+        // Broadcast Neural Verification Signal (Mock mail for now)
+        \Illuminate\Support\Facades\Log::info("OTP for {$user->email}: {$otp}");
+
+        return response()->json([
+            'message' => 'Registration complete. Neural verification protocol initiated.',
+            'requires_verification' => true,
+            'email' => $user->email,
+        ], 201);
+    }
+
+    public function verifyOtp(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'otp' => 'required|string',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || $user->verification_otp != $request->otp) {
+            return response()->json(['message' => 'Invalid or expired neural signal.'], 403);
+        }
+
+        $user->verification_otp = null;
+        $user->email_verified_at = now();
+        $user->save();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
+            'message' => 'Identity verified. Access granted.',
             'access_token' => $token,
             'user' => $user,
-        ], 201);
+        ]);
+    }
+
+    public function resendOtp(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+            $otp = rand(100000, 999999);
+            $user->verification_otp = $otp;
+            $user->save();
+            \Illuminate\Support\Facades\Log::info("Resent OTP for {$user->email}: {$otp}");
+        }
+
+        return response()->json(['message' => 'New verification signal broadcasted.']);
     }
 
     public function profile(Request $request)

@@ -194,6 +194,10 @@ class DashboardController extends Controller
                 'MAIL_ENCRYPTION' => $request->input('mail_encryption'),
                 'MAIL_FROM_ADDRESS' => $request->input('mail_username'),
             ]);
+        } elseif ($type === 'gemini') {
+            $this->updateEnv([
+                'GEMINI_API_KEY' => $request->input('gemini_api_key'),
+            ]);
         } elseif ($type === 'firebase') {
             $this->updateEnv([
                 'FIREBASE_PROJECT_ID' => $request->input('firebase_project_id'),

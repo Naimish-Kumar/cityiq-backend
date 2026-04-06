@@ -26,6 +26,7 @@ class User extends Authenticatable
         'location',
         'google_id',
         'avatar',
+        'verification_otp',
     ];
 
     /**
