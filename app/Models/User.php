@@ -80,4 +80,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(AreaAlert::class);
     }
+
+    public function countryAlerts()
+    {
+        return $this->hasMany(UserCountryAlert::class);
+    }
 }

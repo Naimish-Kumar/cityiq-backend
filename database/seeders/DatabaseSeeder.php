@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             CostCalculationSeeder::class,
             CommuteSimulationSeeder::class,
             AreaAlertSeeder::class,
+            CountrySeeder::class,
         ]);
     }
 }

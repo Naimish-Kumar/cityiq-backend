@@ -65,23 +65,24 @@ class DashboardController extends Controller
         $recentQueries = AiQuery::query()
             ->with('user')
             ->latest()
-            ->take(4)
+            ->take(8)
             ->get()
             ->map(function ($query) {
+                $isTour = $query->type === 'tour_guide';
                 return [
                     'title' => optional($query->user)->name ?: 'Anonymous user',
-                    'description' => 'Asked AI: ' . str($query->query)->limit(55),
+                    'description' => ($isTour ? '🌍 Tour Guide: ' : '🤖 AI Task: ') . str($query->query)->limit(55),
                     'status' => ucfirst(str_replace('_', ' ', $query->type)),
                     'time' => $query->created_at?->diffForHumans() ?? 'Recently',
                     'timestamp' => $query->created_at?->timestamp ?? 0,
-                    'tone' => 'info',
+                    'tone' => $isTour ? 'positive' : 'info',
                 ];
             });
 
         $activityFeed = $recentReviews
             ->concat($recentQueries)
             ->sortByDesc('timestamp')
-            ->take(6)
+            ->take(8)
             ->values();
 
         $topAreas = Area::query()
@@ -92,6 +93,7 @@ class DashboardController extends Controller
         $stats = [
             'total_users' => User::count(),
             'active_areas' => Area::count(),
+            'active_countries' => \App\Models\Country::count(),
             'avg_cost' => '₹' . number_format($averageRent ?: 0),
             'api_calls' => AiQuery::count() + Review::count(),
             'verified_reviews' => Review::where('is_verified_local', true)->count(),
@@ -101,9 +103,9 @@ class DashboardController extends Controller
 
         $opsSummary = collect([
             ['label' => 'AI queries', 'value' => AiQuery::count(), 'hint' => 'assistant sessions stored'],
+            ['label' => 'Travel Intelligence', 'value' => \App\Models\Country::count(), 'hint' => 'nations indexed in v2.0'],
+            ['label' => 'Visa Monitor', 'value' => \App\Models\VisaRequirement::count(), 'hint' => 'passport rules established'],
             ['label' => 'Cost calculations', 'value' => CostCalculation::count(), 'hint' => 'budget plans generated'],
-            ['label' => 'Commute simulations', 'value' => CommuteSimulation::count(), 'hint' => 'peak/off-peak runs'],
-            ['label' => 'Unread alerts', 'value' => AreaAlert::where('is_read', false)->count(), 'hint' => 'saved area changes pending'],
             ['label' => 'Score snapshots', 'value' => AreaScoreHistory::count(), 'hint' => 'historical trend points'],
         ]);
 

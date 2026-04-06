@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -11,6 +10,8 @@ use App\Http\Controllers\ComparisonController;
 use App\Http\Controllers\CostCalculatorController;
 use App\Http\Controllers\CommuteSimulationController;
 use App\Http\Controllers\AlertController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\TravelAiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,23 @@ use App\Http\Controllers\AlertController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+// v2.0 Country Intelligence Routes
+Route::prefix('v2')->group(function () {
+    Route::get('/countries', [CountryController::class, 'index']);
+    Route::get('/countries/{code}', [CountryController::class, 'show']);
+    Route::get('/countries/{code}/visa/{passport}', [CountryController::class, 'visa']);
+    Route::get('/countries/{code}/health', [CountryController::class, 'health']);
+    Route::get('/countries/{code}/culture', [CountryController::class, 'culture']);
+    Route::get('/countries/{code}/scams', [CountryController::class, 'scams']);
+    Route::get('/countries/{code}/transport', [CountryController::class, 'transport']);
+    Route::get('/countries/{code}/visit-timing', [CountryController::class, 'visitTiming']);
+
+    // AI Tour Guide (Authenticated)
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/tour-guide/query', [TravelAiController::class, 'query']);
+    });
+});
 
 // Auth Routes
 Route::post('/register', [AuthController::class, 'register']);
