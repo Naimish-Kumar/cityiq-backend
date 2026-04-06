@@ -1,24 +1,34 @@
 @extends('layouts.main')
 
-@section('title', 'About | CityIQ')
+@section('title', 'About Zenith Intelligence — CityIQ')
 
 @section('content')
-    <section class="page-hero animate">
-        <p class="eyebrow">About CityIQ</p>
-        <h1>Urban intelligence built for confident moves.</h1>
-        <p>CityIQ helps people understand how a place actually feels to live in, using both structured data and real community insight.</p>
-    </section>
-
-    <section class="section">
-        <div class="content-grid">
-            <article class="glass-card animate">
-                <h2>Mission</h2>
-                <p>Make relocation decisions faster, clearer, and far less risky by turning fragmented location data into practical guidance.</p>
-            </article>
-            <article class="glass-card animate delay-1">
-                <h2>How it works</h2>
-                <p>We combine area scores, cost signals, review sentiment, and operator tooling so both movers and platform admins can act on the same source of truth.</p>
-            </article>
+<section style="padding: 180px 10% 120px">
+    <div style="max-width: 800px; margin: 0 auto">
+        <div class="hero-tag">Core Mission</div>
+        <h1 style="font-size: 52px; margin: 20px 0">Intelligence Beyond<br><span class="gradient-text">Information</span></h1>
+        
+        <div class="zenith-card" style="margin-top: 60px">
+            <p style="color: var(--text-secondary); font-size: 18px; line-height: 1.8; margin-bottom: 30px">
+                CityIQ was founded on a simple premise: raw data without context is noise. To truly understand a destination, one must simulate the lived experience.
+            </p>
+            <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8">
+                With version 2.0, we've expanded our reach from domestic relocation to global travel intelligence. Our neural engines now process over 180 dimensions of country-level data to bring you sub-second insights into safety, cost, and culture.
+            </p>
         </div>
-    </section>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-top: 40px">
+             <div class="zenith-card" style="text-align: center; padding: 24px">
+                <div style="font-size: 24px; margin-bottom: 10px">🛡️</div>
+                <h4 style="margin-bottom: 8px">99.9% Safety</h4>
+                <p style="font-size: 12px; color: var(--text-secondary)">Data Accuracy</p>
+             </div>
+             <div class="zenith-card" style="text-align: center; padding: 24px">
+                <div style="font-size: 24px; margin-bottom: 10px">🌍</div>
+                <h4 style="margin-bottom: 8px">190+ Nations</h4>
+                <p style="font-size: 12px; color: var(--text-secondary)">Fully Indexed</p>
+             </div>
+        </div>
+    </div>
+</section>
 @endsection
