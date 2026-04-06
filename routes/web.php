@@ -24,6 +24,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/credentials', [DashboardController::class, 'credentials'])->name('credentials');
         Route::get('/users', [DashboardController::class, 'users'])->name('users');
+        Route::post('/users/{id}', [DashboardController::class, 'updateUser'])->name('users.update');
+        Route::post('/users/{id}/delete', [DashboardController::class, 'deleteUser'])->name('users.delete');
         Route::get('/areas', [OperationsController::class, 'areas'])->name('areas');
         Route::post('/areas/save', [OperationsController::class, 'saveArea'])->name('areas.save');
         Route::post('/areas/{id}/delete', [OperationsController::class, 'deleteArea'])->name('areas.delete');
@@ -35,5 +37,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/intelligence', [OperationsController::class, 'intelligence'])->name('intelligence');
         Route::get('/settings', [DashboardController::class, 'settings'])->name('settings');
         Route::post('/settings', [DashboardController::class, 'updateSettings'])->name('settings.update');
+        Route::post('/purge', [DashboardController::class, 'purge'])->name('purge');
     });
 });

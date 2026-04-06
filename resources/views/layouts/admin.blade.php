@@ -53,17 +53,31 @@
             <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px">
                 <div>
                     <h1 style="font-size: 28px; margin-bottom: 4px">@yield('title', 'Primary Control')</h1>
-                    <p style="color: var(--text-secondary); font-size: 13px">ID: {{ strtoupper(substr(Session::getId(), 0, 12)) }} • Location: Global Hub</p>
+                    <p style="color: var(--text-secondary); font-size: 13px">ID: {{ strtoupper(substr((string) Session::getId(), 0, 12)) }} • Location: Global Hub</p>
                 </div>
                 <div style="display: flex; align-items: center; gap: 20px">
                     <div class="zenith-card" style="padding: 8px 16px; border-radius: 12px; display: flex; align-items: center; gap: 10px">
                          <div style="width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #020617">
-                            {{ substr(Session::get('admin_email', 'A'), 0, 1) }}
+                            {{ substr((string) Session::get('admin_email', 'A'), 0, 1) }}
                          </div>
                          <div style="font-size: 12px; font-weight: 700">Administrator</div>
                     </div>
                 </div>
             </header>
+
+            @if(session('success'))
+                <div class="zenith-card" style="margin-bottom: 32px; padding: 16px 24px; border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.1); color: #10b981; font-weight: 600; display: flex; align-items: center; gap: 12px">
+                    <div style="width: 8px; height: 8px; background: currentColor; border-radius: 50%; box-shadow: 0 0 10px currentColor"></div>
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="zenith-card" style="margin-bottom: 32px; padding: 16px 24px; border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.1); color: #ef4444; font-weight: 600; display: flex; align-items: center; gap: 12px">
+                    <div style="width: 8px; height: 8px; background: currentColor; border-radius: 50%; box-shadow: 0 0 10px currentColor"></div>
+                    {{ session('error') }}
+                </div>
+            @endif
 
             @yield('content')
         </main>

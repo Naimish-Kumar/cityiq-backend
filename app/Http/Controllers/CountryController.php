@@ -31,20 +31,29 @@ class CountryController extends Controller
      */
     public function show($code)
     {
-        $country = Country::where('code', strtoupper($code))->firstOrFail();
-        
-        // Include related intelligence modules
-        $country->load([
-            'healthGuides', 
-            'culturalGuides', 
-            'scamAlerts' => function($query) {
-                $query->where('is_verified', true)->orderBy('report_count', 'desc');
-            },
-            'transportInfo',
-            'visitTiming'
-        ]);
+        try {
+            $country = Country::where('code', strtoupper($code))->firstOrFail();
+            
+            // Include related intelligence modules
+            $country->load([
+                'healthGuides', 
+                'culturalGuides', 
+                'scamAlerts' => function($query) {
+                    $query->where('is_verified', true)->orderBy('report_count', 'desc');
+                },
+                'transportInfo',
+                'visitTiming'
+            ]);
 
-        return $country;
+            return response()->json($country);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Intelligence node unreachable',
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ], 500);
+        }
     }
 
     /**

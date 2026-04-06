@@ -120,6 +120,9 @@
             <p style="color: var(--text-secondary); font-size: 11px">Emergency protocol to flush all encrypted tokens and caches.</p>
         </div>
     </div>
-    <button class="btn-zenith" style="background: var(--error); color: white; padding: 12px 32px; font-size: 11px">Execute Purge</button>
+    <form action="{{ route('admin.purge') }}" method="POST">
+        @csrf
+        <button type="submit" class="btn-zenith" style="background: var(--error); color: white; padding: 12px 32px; font-size: 11px">Execute Purge</button>
+    </form>
 </div>
 @endsection

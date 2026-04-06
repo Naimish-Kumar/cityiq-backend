@@ -14,6 +14,7 @@ use App\Models\Review;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -157,23 +158,26 @@ class DashboardController extends Controller
         $users = User::query()
             ->withCount(['reviews', 'aiQueries'])
             ->latest()
-            ->take(12)
-            ->get()
-            ->map(function ($user) {
-                $activityCount = $user->reviews_count + $user->ai_queries_count;
-
-                return [
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'location' => $user->location ?: 'Location not set',
-                    'role' => $user->email === 'admin@cityiq.site' ? 'Admin' : ($activityCount > 3 ? 'Power User' : 'User'),
-                    'status' => $activityCount > 0 ? 'Active' : 'Quiet',
-                    'last_seen' => $user->updated_at?->diffForHumans() ?? 'Unknown',
-                    'activity' => $activityCount,
-                ];
-            });
+            ->paginate(50);
 
         return view('admin.users', compact('users'));
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->update($request->only(['name', 'email', 'location']));
+        return back()->with('success', 'User profile reconstructed successfully.');
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::findOrFail($id);
+        if ($user->email === 'admin@cityiq.site') {
+            return back()->with('error', 'Critical System Failure: Cannot delete master administrator.');
+        }
+        $user->delete();
+        return back()->with('success', 'User node purged from synchronization hub.');
     }
 
     public function settings()
@@ -181,7 +185,7 @@ class DashboardController extends Controller
         return view('admin.settings');
     }
 
-    public function updateSettings(\Illuminate\Http\Request $request)
+    public function updateSettings(Request $request)
     {
         $type = $request->input('type');
 
@@ -222,13 +226,23 @@ class DashboardController extends Controller
             foreach ($data as $key => $value) {
                 if ($value === null) continue;
                 
-                $pattern = "/^{$key}=\"?([^\"]*)\"?/m";
+                // Escape key for regex and ensure it matches the full key
+                $keyRegex = preg_quote($key, '/');
+                $pattern = "/^{$keyRegex}=.*/m";
                 $replacement = "{$key}=\"{$value}\"";
 
                 if (preg_match($pattern, $content)) {
-                    $content = preg_replace($pattern, $replacement, $content);
+                    // Use preg_quote or simple replacement to avoid backreference issues ($1, etc)
+                    // Actually, preg_replace with a callback or simple str_replace on lines is safer
+                    $lines = explode("\n", $content);
+                    foreach ($lines as $i => $line) {
+                        if (str_starts_with($line, "{$key}=")) {
+                            $lines[$i] = $replacement;
+                        }
+                    }
+                    $content = implode("\n", $lines);
                 } else {
-                    $content .= "\n{$key}=\"{$value}\"";
+                    $content = rtrim($content) . "\n{$key}=\"{$value}\"\n";
                 }
             }
 
@@ -247,6 +261,16 @@ class DashboardController extends Controller
         }
 
         return substr($value, 0, 4) . str_repeat('*', max(strlen($value) - 8, 4)) . substr($value, -4);
+    }
+
+    public function purge()
+    {
+        try {
+            \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+            return back()->with('success', 'Neural system purged and reconstructed successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Purge protocol failed: ' . $e->getMessage());
+        }
     }
 
     private function hasDashboardTables(): bool
