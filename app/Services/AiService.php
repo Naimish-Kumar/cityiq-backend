@@ -23,7 +23,7 @@ class AiService
             return "Zenith Intelligence Service is currently in simulation mode. Since your environment doesn't have a live Neural Key (GEMINI_API_KEY), I'm providing this data-driven prediction based on local market heuristics. Your query about '" . $prompt . "' suggests high utility potential in this area.";
         }
 
-        $url = "https://generativelanguage.googleapis.com/v1beta/models/{$this->model}:generateContent?key={$this->apiKey}";
+        $url = "https://generativelanguage.googleapis.com/v1/models/{$this->model}:generateContent?key={$this->apiKey}";
 
         try {
             $response = Http::post($url, [
