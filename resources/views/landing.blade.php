@@ -1,176 +1,89 @@
 @extends('layouts.main')
 
 @section('content')
-    <section class="hero">
-        <div class="hero-backdrop"></div>
-        <div class="hero-copy animate">
-            <p class="hero-tag">Live neighborhood intelligence for modern movers</p>
-            <h1>Move with data, not guesswork.</h1>
-            <p class="hero-text">CityIQ turns scattered city signals into one clear picture. Compare safety, cost, lifestyle, and local sentiment before you commit to a move.</p>
+<!-- 🌏 Hero Section -->
+<section class="hero-section" style="background-image: linear-gradient(rgba(5, 10, 18, 0.7), rgba(5, 10, 18, 0.7)), url('{{ asset('storage/zenith_hero_bg_1775492808879.png') }}'); background-size: cover; background-position: center;">
+    <div class="hero-tag animate-fade-up">Global Intel v2.0</div>
+    <h1 class="hero-title animate-fade-up" style="animation-delay: 0.2s">
+        Decipher Life<br>
+        <span class="gradient-text">Across the Planet</span>
+    </h1>
+    <p style="max-width: 600px; color: var(--text-secondary); margin-bottom: 40px; font-size: 18px" class="animate-fade-up" style="animation-delay: 0.3s">
+        The world's most intelligent platform for simulating lived experiences. Understand safety, costs, and culture before you arrive.
+    </p>
+    <div class="hero-actions animate-fade-up" style="animation-delay: 0.4s; display: flex; gap: 15px">
+        <a href="#features" class="btn-zenith btn-primary">Discover Intelligence</a>
+        <a href="#stats" class="btn-zenith" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border)">View Network</a>
+    </div>
+</section>
 
-            <div class="hero-actions">
-                <a href="#features" class="nav-btn">Explore Features</a>
-                <a href="{{ route('admin.login') }}" class="secondary-btn">Open Dashboard</a>
+<!-- 📊 Stats Section -->
+<section id="stats" style="padding: 100px 10%; background: var(--bg-surface)">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px">
+        <div class="zenith-card" style="text-align: center">
+            <h2 class="gradient-text" style="font-size: 40px">190+</h2>
+            <p style="color: var(--text-secondary)">Countries Indexed</p>
+        </div>
+        <div class="zenith-card" style="text-align: center">
+            <h2 class="gradient-text" style="font-size: 40px">30K+</h2>
+            <p style="color: var(--text-secondary)">Visa Pathways</p>
+        </div>
+        <div class="zenith-card" style="text-align: center">
+            <h2 class="gradient-text" style="font-size: 40px">0.4s</h2>
+            <p style="color: var(--text-secondary)">AI Query Speed</p>
+        </div>
+    </div>
+</section>
+
+<!-- ⚡ Features section -->
+<section id="features" style="padding: 120px 10%">
+    <div style="text-align: center; margin-bottom: 80px">
+        <h2 style="font-size: 48px; margin-bottom: 16px">The 9 Pillars of <span class="gradient-text">Zenith</span></h2>
+        <p style="color: var(--text-secondary)">Comprehensive data architecture for global citizens.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px">
+        <div class="zenith-card">
+            <div style="width: 48px; height: 48px; background: rgba(59, 130, 246, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px">
+                🛰️
             </div>
+            <h3 style="margin-bottom: 12px">Safety Intelligence</h3>
+            <p style="color: var(--text-secondary); font-size: 14px">Real-time composite scores tracking crime, stability, and natural disaster risk with 98.9% historical accuracy.</p>
+        </div>
 
-            <div class="hero-stats">
-                <div class="metric-pill">
-                    <strong>{{ number_format($stats['data_points']) }}+</strong>
-                    <span>Data points modeled</span>
-                </div>
-                <div class="metric-pill">
-                    <strong>{{ number_format($stats['city_profiles']) }}</strong>
-                    <span>City profiles tracked</span>
-                </div>
-                <div class="metric-pill">
-                    <strong>{{ number_format($stats['verified_reviews']) }}</strong>
-                    <span>Verified local reviews</span>
-                </div>
+        <div class="zenith-card">
+            <div style="width: 48px; height: 48px; background: rgba(16, 185, 129, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px">
+                💎
+            </div>
+            <h3 style="margin-bottom: 12px">Real Cost Simulator</h3>
+            <p style="color: var(--text-secondary); font-size: 14px">Dynamic daily budgeting for Backpackers, Mid-range travelers, and Digital Nomads across every global province.</p>
+        </div>
+
+        <div class="zenith-card">
+            <div style="width: 48px; height: 48px; background: rgba(245, 158, 11, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px">
+                🛂
+            </div>
+            <h3 style="margin-bottom: 12px">Visa Navigator</h3>
+            <p style="color: var(--text-secondary); font-size: 14px">Instant eligibility checks for over 30,000 passport-destination combinations with rejection risk analysis.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 📱 App Promo -->
+<section style="padding: 100px 10%; background: linear-gradient(to bottom, var(--bg-deep), var(--bg-surface))">
+    <div class="zenith-card" style="display: flex; flex-wrap: wrap; align-items: center; gap: 50px; background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent)">
+        <div style="flex: 1; min-width: 300px">
+            <div class="hero-tag">Mobile Experience</div>
+            <h2 style="font-size: 40px; margin: 20px 0">Zenith in Your Pocket</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 30px">Download the CityIQ mobile application to access live AI Tour Guide features and real-time safety alerts while you travel.</p>
+            <div style="display: flex; gap: 15px">
+                 <div style="padding: 10px 20px; background: black; border-radius: 10px; border: 1px solid #333; color: white">App Store</div>
+                 <div style="padding: 10px 20px; background: black; border-radius: 10px; border: 1px solid #333; color: white">Play Store</div>
             </div>
         </div>
-
-        <div class="hero-panel animate delay-1">
-            <div class="hero-card hero-scorecard">
-                <div class="score-topline">
-                    <div>
-                        <span>Featured district</span>
-                        <strong>{{ optional($featuredAreas->first())->name ?? 'No area yet' }}</strong>
-                    </div>
-                    <div class="score-badge">Live</div>
-                </div>
-
-                @if($featuredAreas->first())
-                    <div class="big-score">{{ number_format((float) $featuredAreas->first()->liveability_score, 1) }}</div>
-                    <div class="score-bars">
-                        <div>
-                            <label>Safety</label>
-                            <progress max="100" value="{{ (float) $featuredAreas->first()->safety_score }}"></progress>
-                        </div>
-                        <div>
-                            <label>Cost Efficiency</label>
-                            <progress max="100" value="{{ (float) $featuredAreas->first()->cost_score }}"></progress>
-                        </div>
-                        <div>
-                            <label>Lifestyle</label>
-                            <progress max="100" value="{{ (float) $featuredAreas->first()->lifestyle_score }}"></progress>
-                        </div>
-                    </div>
-                @else
-                    <p class="empty-state">Area data will appear here once records are available.</p>
-                @endif
-            </div>
-
-            <div class="hero-card hero-feed">
-                <p class="eyebrow">Why teams use CityIQ</p>
-                <div class="feed-item">
-                    <strong>Richer relocation decisions</strong>
-                    <span>Compare neighborhoods with a single glance.</span>
-                </div>
-                <div class="feed-item">
-                    <strong>Local signal, not just maps</strong>
-                    <span>Blend hard metrics with human reviews.</span>
-                </div>
-                <div class="feed-item">
-                    <strong>Operator-ready dashboard</strong>
-                    <span>Track users, areas, credentials, and activity.</span>
-                </div>
-            </div>
+        <div style="flex: 1; min-width: 300px; height: 480px; position: relative">
+             <img src="{{ asset('storage/zenith_app_mockup_1775492982692.png') }}" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5))">
         </div>
-    </section>
-
-    <section class="section animate" id="features">
-        <div class="section-title">
-            <p class="eyebrow">Feature stack</p>
-            <h2>Everything needed to evaluate a move</h2>
-            <p>Designed for renters, families, operators, and anyone comparing neighborhoods seriously.</p>
-        </div>
-
-        <div class="feature-grid">
-            <article class="glass-card feature-card">
-                <span class="feature-kicker">01</span>
-                <h3>Liveability scoring</h3>
-                <p>Surface the areas that balance safety, commute, affordability, and overall quality of life.</p>
-            </article>
-            <article class="glass-card feature-card">
-                <span class="feature-kicker">02</span>
-                <h3>Cost visibility</h3>
-                <p>Estimate realistic monthly living costs using structured rent and household expense data.</p>
-            </article>
-            <article class="glass-card feature-card">
-                <span class="feature-kicker">03</span>
-                <h3>Community sentiment</h3>
-                <p>Read verified local reviews and pair them with city-level metrics before making a decision.</p>
-            </article>
-        </div>
-    </section>
-
-    <section class="section animate">
-        <div class="section-title">
-            <p class="eyebrow">Featured areas</p>
-            <h2>Best performing neighborhoods right now</h2>
-            <p>Drawn directly from the current `areas` dataset.</p>
-        </div>
-
-        <div class="area-grid">
-            @forelse($featuredAreas as $area)
-                <article class="glass-card area-card">
-                    <div class="area-card-top">
-                        <div>
-                            <h3>{{ $area->name }}</h3>
-                            <p>{{ $area->city }}, {{ $area->state }}</p>
-                        </div>
-                        @if($area->is_trending)
-                            <span class="status-badge positive">Trending</span>
-                        @endif
-                    </div>
-                    <div class="area-score">{{ number_format((float) $area->liveability_score, 1) }}</div>
-                    <p>{{ $area->description }}</p>
-                    <div class="tag-row">
-                        @foreach(($area->tags ?? []) as $tag)
-                            <span>{{ $tag }}</span>
-                        @endforeach
-                    </div>
-                </article>
-            @empty
-                <p class="empty-state">No featured areas available yet.</p>
-            @endforelse
-        </div>
-    </section>
-
-    <section class="section animate">
-        <div class="section-title">
-            <p class="eyebrow">Testimonials</p>
-            <h2>What locals are saying</h2>
-            <p>Fresh from the current review dataset.</p>
-        </div>
-
-        <div class="feature-grid">
-            @forelse($testimonials as $review)
-                <article class="glass-card quote-card">
-                    <div class="quote-head">
-                        <div>
-                            <strong>{{ optional($review->user)->name ?? 'Anonymous' }}</strong>
-                            <span>{{ optional($review->area)->name ?? 'Area' }}</span>
-                        </div>
-                        <span class="status-badge {{ $review->is_verified_local ? 'positive' : 'neutral' }}">
-                            {{ $review->is_verified_local ? 'Verified local' : 'Community voice' }}
-                        </span>
-                    </div>
-                    <p>"{{ $review->content }}"</p>
-                </article>
-            @empty
-                <p class="empty-state">No testimonials available yet.</p>
-            @endforelse
-        </div>
-    </section>
-
-    <section class="section animate">
-        <div class="cta-banner">
-            <div>
-                <p class="eyebrow">Ready to operate smarter?</p>
-                <h2>Give your website and dashboard a sharper CityIQ presence.</h2>
-            </div>
-            <a href="{{ route('admin.login') }}" class="nav-btn">Launch Admin</a>
-        </div>
-    </section>
+    </div>
+</section>
 @endsection

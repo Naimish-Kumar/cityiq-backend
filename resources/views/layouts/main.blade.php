@@ -3,87 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'CityIQ - Urban Intelligence & Move Analysis')</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="shortcut icon" href="{{ asset('assets/logo/cityiq_logo.png') }}" type="image/x-icon">
-    <meta name="description" content="CityIQ helps you analyze and compare cities before you move. Safety, cost, lifestyle and more.">
+    <title>@yield('title', 'CityIQ — Global Intelligence')</title>
+    <link rel="stylesheet" href="{{ asset('css/zenith.css') }}">
+    <script src="https://kit.fontawesome.com/your-fa-key.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    @yield('styles')
 </head>
 <body>
-    <div class="site-shell">
-        <nav class="site-nav">
-            <a href="{{ route('landing') }}" class="logo">
-                <img src="{{ asset('assets/logo/cityiq_logo.png') }}" alt="CityIQ logo">
-                <span>CityIQ</span>
+    <nav class="glass-nav">
+        <div class="brand">
+            <span style="color: var(--primary)">City</span>IQ <span class="hero-tag" style="margin-left: 10px; vertical-align: middle">v2.0</span>
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link {{ request()->is('/') ? 'active' : '' }}">Explorer</a>
+            <a href="/about" class="nav-link">Intelligence</a>
+            <a href="/faq" class="nav-link">Network</a>
+        </div>
+        <div class="nav-actions">
+            <a href="{{ route('admin.login') }}" class="btn-zenith btn-primary">
+                Portal Access
             </a>
+        </div>
+    </nav>
 
-            <div class="nav-links">
-                <a href="{{ route('landing') }}" class="{{ Request::is('/') ? 'active' : '' }}">Home</a>
-                <a href="{{ route('about') }}" class="{{ Request::is('about') ? 'active' : '' }}">About</a>
-                <a href="{{ route('landing') }}#features">Features</a>
-                <a href="{{ route('faq') }}" class="{{ Request::is('faq') ? 'active' : '' }}">FAQ</a>
-                <a href="{{ route('admin.login') }}" class="nav-btn">Admin Portal</a>
+    <main>
+        @yield('content')
+    </main>
+
+    <footer style="padding: 100px 5%; border-top: 1px solid var(--border); background: var(--bg-surface)">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px">
+            <div>
+                <h3 style="margin-bottom: 20px">CityIQ Zenith</h3>
+                <p style="color: var(--text-secondary); font-size: 14px">Simulating lived experiences through data-driven global intelligence.</p>
             </div>
-        </nav>
-
-        <main>
-            @yield('content')
-        </main>
-
-        <footer class="site-footer">
-            <div class="footer-grid">
-                <div>
-                    <div class="logo footer-logo">
-                        <img src="{{ asset('assets/logo/cityiq_logo.png') }}" alt="CityIQ logo">
-                        <span>CityIQ</span>
-                    </div>
-                    <p>Smart urban intelligence for better living. Explore neighborhoods, compare costs, and move with confidence.</p>
-                </div>
-                <div>
-                    <h4>Platform</h4>
-                    <ul>
-                        <li><a href="{{ route('landing') }}">Home</a></li>
-                        <li><a href="{{ route('about') }}">About</a></li>
-                        <li><a href="{{ route('landing') }}#features">Features</a></li>
-                        <li><a href="{{ route('faq') }}">FAQ</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="{{ route('privacy') }}">Privacy Policy</a></li>
-                        <li><a href="{{ route('terms') }}">Terms</a></li>
-                    </ul>
-                </div>
+            <div>
+                <h4 style="margin-bottom: 15px">Modules</h4>
+                <ul style="list-style: none; color: var(--text-secondary); font-size: 14px">
+                    <li style="margin-bottom: 8px">Safety Monitor</li>
+                    <li style="margin-bottom: 8px">Cost Simulator</li>
+                    <li style="margin-bottom: 8px">Visa Intelligence</li>
+                </ul>
             </div>
-
-            <div class="footer-bottom">
-                <span>&copy; {{ date('Y') }} CityIQ Analytics</span>
-                <span>Built for faster, better relocation decisions.</span>
+            <div>
+                <h4 style="margin-bottom: 15px">Legal</h4>
+                <a href="/privacy" style="display: block; color: var(--text-secondary); text-decoration: none; margin-bottom: 8px">Privacy</a>
+                <a href="/terms" style="display: block; color: var(--text-secondary); text-decoration: none">Terms</a>
             </div>
-        </footer>
-    </div>
+        </div>
+        <div style="text-align: center; margin-top: 80px; color: var(--border); font-size: 12px">
+            © 2026 CityIQ Global. All systems operational.
+        </div>
+    </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.body.classList.add('js');
-            const items = document.querySelectorAll('.animate');
-
-            if (!('IntersectionObserver' in window)) {
-                items.forEach((item) => item.classList.add('is-visible'));
-                return;
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.15 });
-
-            items.forEach((item) => observer.observe(item));
-        });
-    </script>
+    @yield('scripts')
 </body>
 </html>

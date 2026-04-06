@@ -1,158 +1,78 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard | Admin CityIQ')
+@section('title', 'Zenith Intelligence Dashboard')
 
 @section('content')
-    <section class="admin-page">
-        <header class="admin-header animate">
-            <div>
-                <p class="eyebrow">Control center</p>
-                <h1>Analytics Overview</h1>
-                <p class="page-copy">Live operations snapshot for CityIQ traffic, community activity, and market coverage.</p>
-            </div>
-            <div class="admin-profile">
-                <div>
-                    <strong>{{ $adminProfile['name'] }}</strong>
-                    <span>{{ $adminProfile['email'] }}</span>
-                </div>
-                <div class="avatar-pill">{{ $adminProfile['initial'] }}</div>
-            </div>
-        </header>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-bottom: 40px">
+    <!-- 🌍 Countries Indexed -->
+    <div class="zenith-card" style="position: relative; overflow: hidden">
+        <div class="stat-glow"></div>
+        <p style="color: var(--text-secondary); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px">Global Index</p>
+        <h2 style="font-size: 36px; margin: 10px 0">{{ $stats['total_countries'] }}</h2>
+        <div style="color: var(--primary); font-size: 11px; font-weight: bold">Countries Tracked 🌏</div>
+    </div>
 
-        <div class="stats-grid animate delay-1">
-            <div class="stats-card">
-                <h3>Total Registered Users</h3>
-                <div class="val">{{ number_format($stats['total_users']) }}</div>
-                <p>Accounts active across website and mobile flows.</p>
+    <!-- 🛡️ Visa Rules -->
+    <div class="zenith-card" style="position: relative; overflow: hidden">
+        <div class="stat-glow" style="background: var(--accent)"></div>
+        <p style="color: var(--text-secondary); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px">Visa Monitor</p>
+        <h2 style="font-size: 36px; margin: 10px 0">{{ $stats['visa_rules'] }}</h2>
+        <div style="color: var(--accent); font-size: 11px; font-weight: bold">Passport Connections 🛂</div>
+    </div>
+
+    <!-- 🤖 AI Sessions -->
+    <div class="zenith-card" style="position: relative; overflow: hidden">
+        <div class="stat-glow" style="background: var(--success)"></div>
+        <p style="color: var(--text-secondary); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px">AI Tour Guide</p>
+        <h2 style="font-size: 36px; margin: 10px 0">{{ $stats['ai_sessions'] }}</h2>
+        <div style="color: var(--success); font-size: 11px; font-weight: bold">Active v2.0 Queries 🤖</div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px">
+    <!-- 📈 Activity Feed -->
+    <div class="zenith-card">
+        <h3 style="margin-bottom: 24px">Universal Activity Feed</h3>
+        <div style="display: flex; flex-direction: column; gap: 20px">
+            @foreach($recent_activity as $act)
+            <div style="display: flex; gap: 15px; align-items: start; padding-bottom: 20px; border-bottom: 1px solid var(--border)">
+                <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px">
+                    {{ $act['module'] == 'Tour Guide' ? '🤖' : '🛡️' }}
+                </div>
+                <div style="flex: 1">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px">
+                        <span style="font-size: 14px; font-weight: bold">{{ $act['description'] }}</span>
+                        <span style="font-size: 11px; color: var(--text-secondary)">{{ $act['time'] }}</span>
+                    </div>
+                    <div style="font-size: 12px; color: var(--text-secondary)">Node: {{ $act['location'] }} • {{ $act['module'] }} Intelligence</div>
+                </div>
             </div>
-            <div class="stats-card">
-                <h3>Tracked Areas</h3>
-                <div class="val">{{ number_format($stats['active_areas']) }}</div>
-                <p>Neighborhoods with scoring, tags, and cost data.</p>
+            @endforeach
+        </div>
+    </div>
+
+    <!-- ⚡ Operational Summary -->
+    <div>
+        <div class="zenith-card" style="margin-bottom: 24px">
+            <h4 style="margin-bottom: 16px">Platform Health</h4>
+            @foreach($ops_summary as $summary)
+            <div style="margin-bottom: 15px">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px">
+                    <span>{{ $summary['label'] }}</span>
+                    <span style="font-weight: bold">{{ $summary['value'] }}</span>
+                </div>
+                <div style="height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px">
+                    <div style="height: 100%; background: var(--primary); width: 85%; border-radius: 2px"></div>
+                </div>
             </div>
-            <div class="stats-card">
-                <h3>Average 2 BHK Rent</h3>
-                <div class="val">{{ $stats['avg_cost'] }}</div>
-                <p>Calculated from live area seed data.</p>
-            </div>
-            <div class="stats-card">
-                <h3>Total Platform Activity</h3>
-                <div class="val">{{ number_format($stats['api_calls']) }}</div>
-                <p>{{ number_format($stats['verified_reviews']) }} verified local reviews included.</p>
-            </div>
-            <div class="stats-card">
-                <h3>Cost Calculator Runs</h3>
-                <div class="val">{{ number_format($stats['cost_runs']) }}</div>
-                <p>Saved monthly budget projections from users.</p>
-            </div>
-            <div class="stats-card">
-                <h3>Commute Simulations</h3>
-                <div class="val">{{ number_format($stats['commute_runs']) }}</div>
-                <p>Peak and off-peak commute scenarios generated.</p>
-            </div>
+            @endforeach
         </div>
 
-        <div class="admin-grid animate delay-2">
-            <section class="panel-card">
-                <div class="panel-head">
-                    <div>
-                        <p class="eyebrow">Live feed</p>
-                        <h2>Recent Activity</h2>
-                    </div>
-                </div>
-
-                <div class="activity-list">
-                    @forelse($activityFeed as $item)
-                        <article class="activity-item">
-                            <div>
-                                <strong>{{ $item['title'] }}</strong>
-                                <p>{{ $item['description'] }}</p>
-                            </div>
-                            <div class="activity-meta">
-                                <span class="status-badge {{ $item['tone'] }}">{{ $item['status'] }}</span>
-                                <span>{{ $item['time'] }}</span>
-                            </div>
-                        </article>
-                    @empty
-                        <p class="empty-state">No recent activity found yet.</p>
-                    @endforelse
-                </div>
-            </section>
-
-            <section class="panel-card">
-                <div class="panel-head">
-                    <div>
-                        <p class="eyebrow">Rankings</p>
-                        <h2>Top Liveability Areas</h2>
-                    </div>
-                </div>
-
-                <div class="ranking-list">
-                    @forelse($topAreas as $index => $area)
-                        <article class="ranking-item">
-                            <div class="ranking-index">{{ str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) }}</div>
-                            <div>
-                                <strong>{{ $area->name }}</strong>
-                                <p>{{ $area->city }}, {{ $area->state }}</p>
-                            </div>
-                            <div class="ranking-score">{{ number_format((float) $area->liveability_score, 1) }}</div>
-                        </article>
-                    @empty
-                        <p class="empty-state">No area data available yet.</p>
-                    @endforelse
-                </div>
-            </section>
+        <div class="zenith-card" style="background: linear-gradient(135deg, var(--primary), #2563eb); border: none">
+            <h4 style="color: white; margin-bottom: 8px">Zenith v2.1 Update</h4>
+            <p style="color: rgba(255,255,255,0.8); font-size: 12px; margin-bottom: 16px">Deployment scheduled for April 15th. New Predictive Safety models included.</p>
+            <button class="btn-zenith" style="background: white; color: var(--primary); font-size: 12px; padding: 8px 16px">View Roadmap</button>
         </div>
-
-        <div class="admin-grid animate delay-2">
-            <section class="panel-card">
-                <div class="panel-head">
-                    <div>
-                        <p class="eyebrow">Ops pulse</p>
-                        <h2>Product Systems</h2>
-                    </div>
-                </div>
-
-                <div class="ranking-list">
-                    @foreach($opsSummary as $item)
-                        <article class="ranking-item">
-                            <div>
-                                <strong>{{ number_format($item['value']) }}</strong>
-                                <p>{{ $item['label'] }}</p>
-                            </div>
-                            <div class="activity-meta">
-                                <span>{{ $item['hint'] }}</span>
-                            </div>
-                        </article>
-                    @endforeach
-                </div>
-            </section>
-
-            <section class="panel-card">
-                <div class="panel-head">
-                    <div>
-                        <p class="eyebrow">Notifications</p>
-                        <h2>Recent Area Alerts</h2>
-                    </div>
-                </div>
-
-                <div class="activity-list">
-                    @forelse($recentAlerts as $alert)
-                        <article class="activity-item">
-                            <div>
-                                <strong>{{ $alert->title }}</strong>
-                                <p>{{ optional($alert->area)->name }} | {{ $alert->message }}</p>
-                            </div>
-                            <div class="activity-meta">
-                                <span class="status-badge {{ $alert->is_read ? 'neutral' : 'warning' }}">{{ $alert->is_read ? 'Read' : 'Unread' }}</span>
-                                <span>{{ optional($alert->created_at)->diffForHumans() }}</span>
-                            </div>
-                        </article>
-                    @empty
-                        <p class="empty-state">No alerts generated yet.</p>
-                    @endforelse
-                </div>
-            </section>
-        </div>
-    </section>
+    </div>
+</div>
 @endsection
